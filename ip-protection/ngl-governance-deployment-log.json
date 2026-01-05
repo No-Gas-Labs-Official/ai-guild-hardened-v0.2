@@ -1,0 +1,571 @@
+{
+  "deployment_metadata": {
+    "timestamp": "2025-11-11T02:19:51.925048",
+    "deployer": "SuperNinja - IP Governance Deployment Specialist",
+    "framework_version": "NGL-IP-GF v3.0"
+  },
+  "actions_performed": [
+    {
+      "repository": "sui-flash-loan-protocol",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "sui-flash-loan-protocol",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "sui-flash-loan-protocol",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "sui-flash-loan-protocol",
+      "action": "RECOMMENDATION",
+      "details": "Should be made private due to trade secret classification"
+    },
+    {
+      "repository": "sui-flash-loan-protocol",
+      "action": "BRANCH_PROTECTION",
+      "details": "All branches protected"
+    },
+    {
+      "repository": "omnichain-faucet-townsquare",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "omnichain-faucet-townsquare",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "omnichain-faucet-townsquare",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "omnichain-faucet-townsquare",
+      "action": "RECOMMENDATION",
+      "details": "Should be made private due to trade secret classification"
+    },
+    {
+      "repository": "omnichain-faucet-townsquare",
+      "action": "BRANCH_PROTECTION",
+      "details": "All branches protected"
+    },
+    {
+      "repository": "no-gas-labs-profile",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "no-gas-labs-profile",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "no-gas-labs-profile",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "EthosGuardNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "EthosGuardNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "EthosGuardNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "VeritasShieldNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "VeritasShieldNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "VeritasShieldNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "PulseMonitorNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "PulseMonitorNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "PulseMonitorNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "MaestroNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "MaestroNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "MaestroNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "BroadcastNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "BroadcastNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "BroadcastNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "BuzzWireNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "BuzzWireNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "BuzzWireNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "SonicForgeNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "SonicForgeNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "SonicForgeNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "VoxScriptNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "VoxScriptNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "VoxScriptNGL",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "AI-orchestrator-test",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "AI-orchestrator-test",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "AI-orchestrator-test",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "flash-loan-arbitrage-sui",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "flash-loan-arbitrage-sui",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "flash-loan-arbitrage-sui",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "sui-flash-loan-system",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "sui-flash-loan-system",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "sui-flash-loan-system",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "NoGasSlaps-Frontend-v1",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "NoGasSlaps-Frontend-v1",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "NoGasSlaps-Frontend-v1",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "MoodSync-MVP",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "MoodSync-MVP",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "MoodSync-MVP",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "no-gas-slaps",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "no-gas-slaps",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "no-gas-slaps",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "multi-chain-flash-loan-dapp",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "multi-chain-flash-loan-dapp",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "multi-chain-flash-loan-dapp",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "vibe-coding-protocol-v2",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "vibe-coding-protocol-v2",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "vibe-coding-protocol-v2",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "vibe-coding-protocol",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "vibe-coding-protocol",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "vibe-coding-protocol",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "flash-loan-dapp",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "flash-loan-dapp",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "flash-loan-dapp",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "no_gas_labs_sui_flashloan",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "no_gas_labs_sui_flashloan",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "no_gas_labs_sui_flashloan",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "no-gas-labs-monorepo",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "no-gas-labs-monorepo",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "no-gas-labs-monorepo",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "TaskAgile",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "TaskAgile",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "TaskAgile",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "No_Gas_Slaps-",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "No_Gas_Slaps-",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "No_Gas_Slaps-",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "Store",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "Store",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "Store",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "nogaslabs-site",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "nogaslabs-site",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "nogaslabs-site",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    },
+    {
+      "repository": "Omnichain_Bridge_wallet",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "LICENSE.md",
+      "commit": "Add NGL-Attribution License v1.0"
+    },
+    {
+      "repository": "Omnichain_Bridge_wallet",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "IP-METADATA.json",
+      "commit": "Add IP governance metadata"
+    },
+    {
+      "repository": "Omnichain_Bridge_wallet",
+      "action": "FILE_CREATED/UPDATED",
+      "file": "README.md",
+      "commit": "Add IP protection notice"
+    },
+    {
+      "repository": "Omnichain_Bridge_wallet",
+      "action": "FILE_CREATED/UPDATED",
+      "file": ".github/workflows/ip-protection.yml",
+      "commit": "Add NGL IP protection workflow"
+    }
+  ],
+  "repositories_updated": [
+    "sui-flash-loan-protocol",
+    "omnichain-faucet-townsquare",
+    "no-gas-labs-profile",
+    "EthosGuardNGL",
+    "VeritasShieldNGL",
+    "PulseMonitorNGL",
+    "MaestroNGL",
+    "BroadcastNGL",
+    "BuzzWireNGL",
+    "SonicForgeNGL",
+    "VoxScriptNGL",
+    "AI-orchestrator-test",
+    "flash-loan-arbitrage-sui",
+    "sui-flash-loan-system",
+    "NoGasSlaps-Frontend-v1",
+    "MoodSync-MVP",
+    "no-gas-slaps",
+    "multi-chain-flash-loan-dapp",
+    "vibe-coding-protocol-v2",
+    "vibe-coding-protocol",
+    "flash-loan-dapp",
+    "no_gas_labs_sui_flashloan",
+    "no-gas-labs-monorepo",
+    "TaskAgile",
+    "No_Gas_Slaps-",
+    "Store",
+    "nogaslabs-site",
+    "Vibe-_Coding_Protocol",
+    "Omnichain_Bridge_wallet"
+  ],
+  "errors_encountered": []
+}

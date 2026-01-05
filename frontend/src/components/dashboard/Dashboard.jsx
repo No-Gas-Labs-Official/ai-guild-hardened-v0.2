@@ -1,0 +1,463 @@
+import React, { useState, useEffect } from 'react';
+import {
+  CodeBracketIcon,
+  CpuChipIcon,
+  BeakerIcon,
+  ChartBarIcon,
+  ExclamationTriangleIcon,
+  BellIcon,
+  CloudArrowDownIcon,
+  SparklesIcon,
+  CheckCircleIcon,
+  XCircleIcon
+} from '@heroicons/react/24/outline';
+import { apiService } from '../../services/apiService';
+import { notificationService } from '../../services/notificationService';
+import { updateService } from '../../services/updateService';
+
+const Dashboard = () => {
+  const [overview, setOverview] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [activeTab, setActiveTab] = useState('overview');
+  const [unreadNotifications, setUnreadNotifications] = useState(0);
+  const [updateAvailable, setUpdateAvailable] = useState(false);
+
+  const tabs = [
+    { id: 'overview', name: 'Overview', icon: ChartBarIcon },
+    { id: 'insights', name: 'AI Insights', icon: SparklesIcon },
+    { id: 'notifications', name: 'Notifications', icon: BellIcon },
+    { id: 'updates', name: 'Updates', icon: CloudArrowDownIcon }
+  ];
+
+  useEffect(() => {
+    loadDashboardData();
+    initializeServices();
+
+    // Set up auto-refresh every 30 seconds
+    const interval = setInterval(loadDashboardData, 30000);
+
+    return () => {
+      clearInterval(interval);
+      notificationService.stopAutoCheck();
+      updateService.stopAutoCheck();
+    };
+  }, []);
+
+  const initializeServices = async () => {
+    try {
+      // Initialize notifications
+      await notificationService.initialize();
+      setUnreadNotifications(notificationService.getUnreadCount());
+
+      // Initialize update checker
+      await updateService.initialize();
+      setUpdateAvailable(updateService.hasUpdates());
+
+      // Listen for updates
+      notificationService.onUpdate((count) => {
+        setUnreadNotifications(count);
+      });
+
+      updateService.onUpdate((hasUpdate) => {
+        setUpdateAvailable(hasUpdate);
+      });
+    } catch (error) {
+      console.error('Failed to initialize services:', error);
+    }
+  };
+
+  const loadDashboardData = async () => {
+    try {
+      const response = await apiService.get('/api/dashboard/overview');
+      setOverview(response.data);
+    } catch (error) {
+      console.error('Failed to load dashboard data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await loadDashboardData();
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
+  const handlePullToRefresh = (e) => {
+    const scrollTop = e.target.scrollTop;
+    if (scrollTop === -50) {
+      handleRefresh();
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
+
+  if (!overview) {
+    return (
+      <div className="p-4">
+        <div className="card text-center">
+          <ExclamationTriangleIcon className="h-12 w-12 text-red-500 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 mb-2">
+            Failed to load dashboard
+          </h3>
+          <p className="text-gray-500 mb-4">
+            Please check your connection and try again
+          </p>
+          <button onClick={handleRefresh} className="btn-primary">
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="px-4" onScroll={handlePullToRefresh}>
+      {/* Pull to refresh indicator */}
+      {refreshing && (
+        <div className="pull-to-refresh">
+          <div className="spinner-sm"></div>
+          <span className="ml-2 text-sm">Refreshing...</span>
+        </div>
+      )}
+
+      {/* Header */}
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          No-Gas-Labs™ Operations
+        </h1>
+        <p className="text-gray-600">
+          Real-time monitoring and control panel
+        </p>
+      </div>
+
+      {/* Navigation Tabs */}
+      <div className="flex space-x-1 mb-6 overflow-x-auto">
+        {tabs.map((tab) => {
+          const Icon = tab.icon;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`tab-mobile flex items-center ${
+                activeTab === tab.id ? 'active' : ''
+              }`}
+            >
+              <Icon className="h-4 w-4 mr-1" />
+              {tab.name}
+              {tab.id === 'notifications' && unreadNotifications > 0 && (
+                <span className="ml-1 w-2 h-2 bg-blue-500 rounded-full"></span>
+              )}
+              {tab.id === 'updates' && updateAvailable && (
+                <span className="ml-1 w-2 h-2 bg-blue-500 rounded-full"></span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Tab Content */}
+      {activeTab === 'insights' && <InsightsPanel />}
+      {activeTab === 'notifications' && <NotificationCenter />}
+      {activeTab === 'updates' && <UpdateManager />}
+
+      {/* Overview Tab */}
+      {activeTab === 'overview' && (
+        <>
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-2 gap-4 mb-6">
+          <StatCard
+            title="Repositories"
+            value={overview.repositories?.total_repos || 0}
+            subtitle={`${overview.repositories?.active_repos || 0} active`}
+            icon={CodeBracketIcon}
+            color="blue"
+          />
+          <StatCard
+            title="Tasks"
+            value={overview.tasks?.total_tasks || 0}
+            subtitle={`${overview.tasks?.completed_tasks || 0} completed`}
+            icon={CpuChipIcon}
+            color="green"
+          />
+          <StatCard
+            title="Dependencies"
+            value={overview.dependencies?.total_dependencies || 0}
+            subtitle={`${overview.dependencies?.outdated_dependencies || 0} outdated`}
+            icon={BeakerIcon}
+            color="yellow"
+          />
+          <StatCard
+            title="Alerts"
+            value="0"
+            subtitle="No critical issues"
+            icon={ExclamationTriangleIcon}
+            color="red"
+          />
+        </div>
+
+        {/* System Health */}
+        <div className="card-mobile mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-gray-900">
+              System Health
+            </h2>
+            <span className="badge-success">Healthy</span>
+          </div>
+          
+          <div className="space-y-3">
+            <HealthItem
+              label="Database"
+              status="healthy"
+              lastCheck="2 min ago"
+            />
+            <HealthItem
+              label="API Server"
+              status="healthy"
+              lastCheck="Just now"
+            />
+            <HealthItem
+              label="GitHub API"
+              status="healthy"
+              lastCheck="5 min ago"
+            />
+            <HealthItem
+              label="Agent Network"
+              status="healthy"
+              lastCheck="1 min ago"
+            />
+          </div>
+        </div>
+
+        {/* Recent Activity */}
+        <div className="card-mobile mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-gray-900">
+              Recent Activity
+            </h2>
+            <button onClick={handleRefresh} className="text-primary-600 text-sm">
+              Refresh
+            </button>
+          </div>
+          
+          <div className="space-y-3">
+            {overview.recent_activity?.length > 0 ? (
+              overview.recent_activity.slice(0, 5).map((activity, index) => (
+                <ActivityItem key={index} activity={activity} />
+              ))
+            ) : (
+              <p className="text-gray-500 text-center py-4">
+                No recent activity
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="card-mobile mb-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            Quick Actions
+          </h2>
+          
+          <div className="grid grid-cols-2 gap-3">
+            <button className="btn-secondary flex flex-col items-center py-4">
+              <CodeBracketIcon className="h-8 w-8 mb-2" />
+              <span className="text-sm">Scan Repo</span>
+            </button>
+            <button className="btn-secondary flex flex-col items-center py-4">
+              <CpuChipIcon className="h-8 w-8 mb-2" />
+              <span className="text-sm">Start Agent</span>
+            </button>
+            <button className="btn-secondary flex flex-col items-center py-4">
+              <BeakerIcon className="h-8 w-8 mb-2" />
+              <span className="text-sm">New Prototype</span>
+            </button>
+            <button className="btn-secondary flex flex-col items-center py-4">
+              <ChartBarIcon className="h-8 w-8 mb-2" />
+              <span className="text-sm">View Reports</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Performance Chart */}
+        <div className="card-mobile">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            Performance Overview
+          </h2>
+          
+          <div className="h-48 flex items-center justify-center bg-gray-50 rounded-lg">
+            <div className="text-center">
+              <ChartBarIcon className="h-12 w-12 text-gray-400 mx-auto mb-2" />
+              <p className="text-gray-500 text-sm">
+                Performance chart coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+// Stat Card Component
+const StatCard = ({ title, value, subtitle, icon: Icon, color }) => {
+  const colorClasses = {
+    blue: 'bg-blue-500',
+    green: 'bg-green-500',
+    yellow: 'bg-yellow-500',
+    red: 'bg-red-500'
+  };
+
+  return (
+    <div className="card-mobile">
+      <div className="flex items-center justify-between mb-2">
+        <div className={`p-2 rounded-lg ${colorClasses[color]} bg-opacity-10`}>
+          <Icon className={`h-6 w-6 text-${color}-500`} />
+        </div>
+        <span className="text-2xl font-bold text-gray-900">
+          {value.toLocaleString()}
+        </span>
+      </div>
+      <h3 className="text-sm font-medium text-gray-900">{title}</h3>
+      <p className="text-xs text-gray-500">{subtitle}</p>
+    </div>
+  );
+};
+
+// Health Item Component
+const HealthItem = ({ label, status, lastCheck }) => {
+  const statusColors = {
+    healthy: 'text-green-600 bg-green-100',
+    warning: 'text-yellow-600 bg-yellow-100',
+    error: 'text-red-600 bg-red-100'
+  };
+
+  const statusIcons = {
+    healthy: CheckCircleIcon,
+    warning: ExclamationTriangleIcon,
+    error: XCircleIcon
+  };
+
+  const StatusIcon = statusIcons[status];
+
+  return (
+    <div className="flex items-center justify-between">
+      <div className="flex items-center space-x-3">
+        <StatusIcon className="h-5 w-5 text-gray-400" />
+        <span className="text-sm font-medium text-gray-900">{label}</span>
+      </div>
+      <div className="flex items-center space-x-2">
+        <span className={`text-xs px-2 py-1 rounded-full ${statusColors[status]}`}>
+          {status}
+        </span>
+        <span className="text-xs text-gray-500">{lastCheck}</span>
+      </div>
+    </div>
+  );
+};
+
+// Activity Item Component
+const ActivityItem = ({ activity }) => {
+  const getIcon = (type) => {
+    const icons = {
+      'scan': CodeBracketIcon,
+      'build': CpuChipIcon,
+      'deploy': CloudArrowDownIcon,
+      'alert': ExclamationTriangleIcon,
+      'success': CheckCircleIcon
+    };
+    return icons[type] || BellIcon;
+  };
+
+  const Icon = getIcon(activity.type);
+
+  return (
+    <div className="flex items-start space-x-3">
+      <div className="p-2 rounded-lg bg-gray-100 mt-1">
+        <Icon className="h-4 w-4 text-gray-600" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-medium text-gray-900">
+          {activity.title}
+        </p>
+        <p className="text-xs text-gray-500">
+          {activity.description}
+        </p>
+        <p className="text-xs text-gray-400 mt-1">
+          {activity.timestamp}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+// Insights Panel Component
+const InsightsPanel = () => {
+  return (
+    <div className="card-mobile">
+      <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        AI Insights
+      </h2>
+      <div className="h-48 flex items-center justify-center bg-gray-50 rounded-lg">
+        <div className="text-center">
+          <SparklesIcon className="h-12 w-12 text-gray-400 mx-auto mb-2" />
+          <p className="text-gray-500 text-sm">
+            AI-powered insights coming soon
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Notification Center Component
+const NotificationCenter = () => {
+  return (
+    <div className="card-mobile">
+      <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        Notifications
+      </h2>
+      <div className="h-48 flex items-center justify-center bg-gray-50 rounded-lg">
+        <div className="text-center">
+          <BellIcon className="h-12 w-12 text-gray-400 mx-auto mb-2" />
+          <p className="text-gray-500 text-sm">
+            No new notifications
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Update Manager Component
+const UpdateManager = () => {
+  return (
+    <div className="card-mobile">
+      <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        System Updates
+      </h2>
+      <div className="h-48 flex items-center justify-center bg-gray-50 rounded-lg">
+        <div className="text-center">
+          <CloudArrowDownIcon className="h-12 w-12 text-gray-400 mx-auto mb-2" />
+          <p className="text-gray-500 text-sm">
+            System is up to date
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;

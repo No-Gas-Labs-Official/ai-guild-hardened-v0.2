@@ -1,0 +1,31 @@
+name: Pages Uptime Monitor
+on:
+  schedule:
+    - cron: '*/15 * * * *' # every 15 minutes
+  workflow_dispatch:
+
+jobs:
+  check-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Pages URL
+        id: pages
+        run: |
+          PAGES_URL=$(gh api repos/REPO_OWNER/REPO_NAME/pages --jq '.url' 2>/dev/null || echo "")
+          echo "pages_url=$PAGES_URL" >> $GITHUB_OUTPUT
+      - name: Check status
+        if: steps.pages.outputs.pages_url != ''
+        run: |
+          echo "Checking ${{ steps.pages.outputs.pages_url }}"
+          HTTP=$(curl -s -o /dev/null -w "%{http_code}" "${{ steps.pages.outputs.pages_url }}/index.html" || echo 000)
+          echo "status=$HTTP" >> $GITHUB_OUTPUT
+      - name: Open issue if down
+        if: steps.pages.outputs.pages_url != '' && (needs.check-pages.outputs.status != '200' || steps.check-pages.outputs.status != '200')
+        uses: peter-evans/create-issue@v4
+        with:
+          title: "Pages DOWN: NGL Matrix may be unavailable"
+          body: |
+            Automated monitor detected a non-200 response for the Pages site.
+            Pages URL: ${{ steps.pages.outputs.pages_url }}
+            Time: ${{ github.event.head_commit.timestamp }}
+            Please investigate Actions logs and DNS.

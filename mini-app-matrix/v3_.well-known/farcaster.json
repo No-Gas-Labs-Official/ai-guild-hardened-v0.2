@@ -1,0 +1,21 @@
+{
+  "name": "No_Gas_Labs™ Mini-App Matrix",
+  "description": "2026 Scout Edition — curated discovery portal for gasless Mini Apps on Base & Farcaster.",
+  "url": "https://matrix.nogaslabs.com",
+  "icons": [
+    {
+      "src": "https://matrix.nogaslabs.com/matrix-preview.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Launch Matrix",
+      "type": "link",
+      "url": "https://matrix.nogaslabs.com"
+    }
+  ],
+  "version": "2026-01",
+  "keywords": ["farcaster","base","mini-apps","matrix","gasless","neon"]
+}

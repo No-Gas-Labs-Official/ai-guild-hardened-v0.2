@@ -1,0 +1,18 @@
+{
+  "frame": {
+    "version": "vNext",
+    "name": "No_Gas_Labs™ Matrix",
+    "iconUrl": "https://YOUR_DOMAIN/matrix-preview.png",
+    "homeUrl": "https://YOUR_DOMAIN",
+    "imageUrl": "https://YOUR_DOMAIN/matrix-preview.png",
+    "splashImageUrl": "https://YOUR_DOMAIN/matrix-preview.png",
+    "splashBackgroundColor": "#0a0a0a"
+  },
+  "accountAssociation": {
+    "header": "BASE64_HEADER_PLACEHOLDER",
+    "payload": "BASE64_PAYLOAD_PLACEHOLDER",
+    "signature": "BASE64_SIGNATURE_PLACEHOLDER"
+  },
+  "version": "2026-01",
+  "keywords": ["farcaster","base","mini-apps","matrix","gasless"]
+}

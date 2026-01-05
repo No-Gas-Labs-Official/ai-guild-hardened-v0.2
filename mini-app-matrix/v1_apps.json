@@ -1,0 +1,121 @@
+[
+  {
+    "id": "farhero",
+    "name": "FarHero",
+    "url": "https://farhero.xyz",
+    "tags": ["gaming","3d","onchain","gasless"],
+    "category": "Trending"
+  },
+  {
+    "id": "clanker",
+    "name": "Clanker",
+    "url": "https://clanker.app",
+    "tags": ["launcher","token","viral"],
+    "category": "Trending"
+  },
+  {
+    "id": "farcade",
+    "name": "Farcade",
+    "url": "https://farcade.ai",
+    "tags": ["gaming","paymaster"],
+    "category": "Trending"
+  },
+  {
+    "id": "flappycaster",
+    "name": "Flappycaster",
+    "url": "https://flappycaster.xyz",
+    "tags": ["game","notifications"],
+    "category": "Trending"
+  },
+  {
+    "id": "tipn",
+    "name": "Tipn / Noice",
+    "url": "https://tipn.app",
+    "tags": ["tipping","creator"],
+    "category": "Trending"
+  },
+  {
+    "id": "alfafrens",
+    "name": "AlfaFrens",
+    "url": "https://alfafrens.com",
+    "tags": ["social","gasless"],
+    "category": "SocialFi"
+  },
+  {
+    "id": "drakula",
+    "name": "Drakula",
+    "url": "https://drakula.app",
+    "tags": ["streaming","onchain"],
+    "category": "SocialFi"
+  },
+  {
+    "id": "paragraph",
+    "name": "Paragraph / Pods",
+    "url": "https://paragraph.xyz",
+    "tags": ["writing","podcast","onchain"],
+    "category": "SocialFi"
+  },
+  {
+    "id": "bountycaster",
+    "name": "Bountycaster",
+    "url": "https://bountycaster.xyz",
+    "tags": ["bounties","tasks"],
+    "category": "SocialFi"
+  },
+  {
+    "id": "farworld",
+    "name": "Farworld",
+    "url": "https://farworld.gg",
+    "tags": ["game","notifications","monsters"],
+    "category": "Gaming"
+  },
+  {
+    "id": "clankermon",
+    "name": "Clankermon",
+    "url": "https://clankermon.com",
+    "tags": ["collectibles","gasless"],
+    "category": "Gaming"
+  },
+  {
+    "id": "warpslot",
+    "name": "Warpslot",
+    "url": "https://warpslot.xyz",
+    "tags": ["slots","viral"],
+    "category": "Gaming"
+  },
+  {
+    "id": "farguesser",
+    "name": "FarGuesser",
+    "url": "https://farguesser.xyz",
+    "tags": ["game","paymaster"],
+    "category": "Gaming"
+  },
+  {
+    "id": "avantis",
+    "name": "Avantis",
+    "url": "https://avantis.fi",
+    "tags": ["perps","leverage"],
+    "category": "DeFi"
+  },
+  {
+    "id": "moonwell",
+    "name": "Moonwell",
+    "url": "https://moonwell.fi",
+    "tags": ["lending","yield"],
+    "category": "DeFi"
+  },
+  {
+    "id": "morpho",
+    "name": "Morpho",
+    "url": "https://morpho.org",
+    "tags": ["vaults","yield"],
+    "category": "DeFi"
+  },
+  {
+    "id": "mintclub",
+    "name": "Mint.Club",
+    "url": "https://mint.club",
+    "tags": ["launch","bonding"],
+    "category": "DeFi"
+  }
+]

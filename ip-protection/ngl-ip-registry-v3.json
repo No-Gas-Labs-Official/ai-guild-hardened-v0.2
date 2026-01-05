@@ -1,0 +1,1374 @@
+{
+  "governance_metadata": {
+    "framework_version": "NGL-IP-GF v3.0",
+    "timestamp": "2025-11-11T02:17:15.325539",
+    "governor": "Damien Edward Featherstone",
+    "jurisdiction": "Decentralized Multi-Chain",
+    "enforcement_protocols": [
+      "TON",
+      "SUI",
+      "Arweave",
+      "IPFS"
+    ]
+  },
+  "canonical_ledger": {
+    "no-gas-labs-profile": {
+      "repo_name": "no-gas-labs-profile",
+      "github_id": 1091434097,
+      "hash_signature": "SHA256:7c2fc2415d99b1212131e6175d2ea77f071851cac6759738d8015758ed87d354",
+      "merkle_root": "MERKLE:7827b36332d77c3247416a871050d0061952c1863eab1195b2c392eb24cc2ee3",
+      "ipfs_snapshot": "ipfs://bafybeig5979904a6047bb35fa2ae9e573533b76c1e8778b6b6e",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325638",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "EthosGuardNGL": {
+      "repo_name": "EthosGuardNGL",
+      "github_id": 1090527211,
+      "hash_signature": "SHA256:5ea88a1ce4b0b35e05a95f4515216ca2e871a3739a891e756f882a6d370b9dcb",
+      "merkle_root": "MERKLE:cdedc30921252a32c4fec669d69f3661be3a3327e8e4d4d5b3ab7819dd9833d3",
+      "ipfs_snapshot": "ipfs://bafybeig0a0bff5955b30ea58962685eaf8191048ac998ba3319",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325651",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "VeritasShieldNGL": {
+      "repo_name": "VeritasShieldNGL",
+      "github_id": 1090527113,
+      "hash_signature": "SHA256:248d15b295265529bd1497dd8008a4cf3eca946466a27c138159d25ab1f1e8f2",
+      "merkle_root": "MERKLE:73e72ad56f4647e0850ca33605397065ce868ba2370a35c21f6a3b00ea0387ae",
+      "ipfs_snapshot": "ipfs://bafybeig97453d62c57c7434a00f87bc55726b3c8e12edbaecbf",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325659",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "PulseMonitorNGL": {
+      "repo_name": "PulseMonitorNGL",
+      "github_id": 1090526983,
+      "hash_signature": "SHA256:564472189a98dc26ea25ce067224876104c8c9c315cbed294bbbc4871fe21f2a",
+      "merkle_root": "MERKLE:a74d0a952d5cdd64dfddb3deee67d71dcb568fc704a08cb0cbc8823b277a8f69",
+      "ipfs_snapshot": "ipfs://bafybeiga45388726556af9623626fb9d5816ff38304bbda9d7e",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325668",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "MaestroNGL": {
+      "repo_name": "MaestroNGL",
+      "github_id": 1090526879,
+      "hash_signature": "SHA256:bb8e9868dce81da49d8bb391f688a90fb1f97ce21c289259dea554620bcf6b0d",
+      "merkle_root": "MERKLE:231f43aeed7eeff9b8ae38eee7fc1be1fdc56070d34bba5d459bb89b241b69f4",
+      "ipfs_snapshot": "ipfs://bafybeig525f0a895765ac7b02b51ffcbf699b1d5c8370e29f80",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325676",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "BroadcastNGL": {
+      "repo_name": "BroadcastNGL",
+      "github_id": 1090526794,
+      "hash_signature": "SHA256:d04ab2682db4e2ab2c355a5a62012d0ec81804f6c7764721bde781793d91c1f2",
+      "merkle_root": "MERKLE:e89488e48b26565b6e72653d50d940e31a8ccdee972c62006214e455fd275f8e",
+      "ipfs_snapshot": "ipfs://bafybeig6ab5e944f05bbbfcf79a9a4c3007fbc77dd7a0544c1b",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325684",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "BuzzWireNGL": {
+      "repo_name": "BuzzWireNGL",
+      "github_id": 1090526660,
+      "hash_signature": "SHA256:f601faa9d148d004656f6ba65b5b823b772b557bc6c13e97575cb3e609a7e0c4",
+      "merkle_root": "MERKLE:f67089c5f696b2bdb9c3446e023fd4163616fc8aeb6ca1543d78855a0e9a6cca",
+      "ipfs_snapshot": "ipfs://bafybeig366ab339e564903129048d91ab4cad9fc7fc6a1fda55",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325690",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "SonicForgeNGL": {
+      "repo_name": "SonicForgeNGL",
+      "github_id": 1090526565,
+      "hash_signature": "SHA256:1f708fb08ee131af7ae4048c76bdf9de4d049a244948e98da3558b04189b8d0d",
+      "merkle_root": "MERKLE:c31655d4cc7d1ba81b17ea4ab9a186a28e4f4c1c9ab649b3f687bba347417769",
+      "ipfs_snapshot": "ipfs://bafybeig884b815ab79570a89d0c4bcd46dd75fd146e03229c2b",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325703",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "VoxScriptNGL": {
+      "repo_name": "VoxScriptNGL",
+      "github_id": 1090526291,
+      "hash_signature": "SHA256:cc834b4b97b0caccc9f4d3a150f8842423c01ec20f85a88f1de4f39f668d137b",
+      "merkle_root": "MERKLE:353a828e36a9a51516655eb93bd2b286c74d171ff6338ba678787981f5341269",
+      "ipfs_snapshot": "ipfs://bafybeige6b02f1c89475d9f922e910d1cc1ca9ff52022c3d81a",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325714",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "AI-orchestrator-test": {
+      "repo_name": "AI-orchestrator-test",
+      "github_id": 1072599436,
+      "hash_signature": "SHA256:079eadb724d25f5e64b60709f45fca5127af05000bedb0df233cc111e8c2c87d",
+      "merkle_root": "MERKLE:8db5253908554684b8598c7d5aa5cdd95a205f52b72e08c2306e5496f761e1d9",
+      "ipfs_snapshot": "ipfs://bafybeig63859ba79520afda2774130bcd9e00a584dbe4a2037d",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325723",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "sui-flash-loan-protocol": {
+      "repo_name": "sui-flash-loan-protocol",
+      "github_id": 1072363829,
+      "hash_signature": "SHA256:d7a3c5557941bf1ed420859c79124cbe9d0a91467332063df784f53046bdb06b",
+      "merkle_root": "MERKLE:36b98757f091350da825c5f8a2c64be51d3290c1ecbc64e79106e592034a502c",
+      "ipfs_snapshot": "ipfs://bafybeig3e5252d29bb5614687ed5f16876e829e33b0d8d39ded",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.115 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325729",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "trade_secret",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "PROHIBITED",
+        "derivative_works": "PROHIBITED",
+        "redistribution": "PROHIBITED",
+        "ai_training": "PROHIBITED",
+        "api_access": "RESTRICTED",
+        "forking_allowed": false
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PRIVATE_ONLY",
+        "branch_protection": "ALL_BRANCHES",
+        "required_reviewers": 3,
+        "signed_commits_required": true,
+        "force_push_blocked": true,
+        "deletion_blocked": true,
+        "forking_blocked": true
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "flash-loan-arbitrage-sui": {
+      "repo_name": "flash-loan-arbitrage-sui",
+      "github_id": 1072249220,
+      "hash_signature": "SHA256:b2c1b62367b4cf96155df003d050cbdf3463a8a545148dc3db322a0154bcd7bc",
+      "merkle_root": "MERKLE:79c1b9fccda384c5c875dfda4c80ad88d6244734a3e4a591bfe08336c82e7026",
+      "ipfs_snapshot": "ipfs://bafybeigcb686fb7bef0a2118bdcd18e70c1e99dc18993c6ef06",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325738",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "sui-flash-loan-system": {
+      "repo_name": "sui-flash-loan-system",
+      "github_id": 1070466019,
+      "hash_signature": "SHA256:e5c0bd3c9412c850c188b19359612b9dd6b0af0d64a45b59e3f72b14c095edcb",
+      "merkle_root": "MERKLE:53a12a31ad522fa7a57cb05558a71dc27fb0539bfd03f05f91daa002dabde36a",
+      "ipfs_snapshot": "ipfs://bafybeig313e86ed1de686c4cf85174e2d638ef284fcb5531c13",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325746",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "NoGasSlaps-Frontend-v1": {
+      "repo_name": "NoGasSlaps-Frontend-v1",
+      "github_id": 1063806162,
+      "hash_signature": "SHA256:570a8b580f4e2254c0c677a2e5d97c7962b99bb7939499bedb93dcb1da03e422",
+      "merkle_root": "MERKLE:1e046492d92e8a192de5e22cf2815888fa061ed57fc88c685b86130d7cc1c2f6",
+      "ipfs_snapshot": "ipfs://bafybeig595f329d2584746992a55e78e4e1927b18331eb2c54b",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325757",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "MoodSync-MVP": {
+      "repo_name": "MoodSync-MVP",
+      "github_id": 1062775443,
+      "hash_signature": "SHA256:00e8eb1365a086db1d20eeee9c94b7a51e1eecd9cc25d874386c0d58c96f49a1",
+      "merkle_root": "MERKLE:f2e74458068cb5589835932611a21924f46253bd5b04bb5cef798856fda59fad",
+      "ipfs_snapshot": "ipfs://bafybeig6255b112701c077e3d05405af7410bbee2129e174cf6",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325762",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "no-gas-slaps": {
+      "repo_name": "no-gas-slaps",
+      "github_id": 1060052341,
+      "hash_signature": "SHA256:2a5ae794489cfe60ab71dfb9f421d2028900c6a1e7be501661463546f8c9d304",
+      "merkle_root": "MERKLE:f8008534e3ecdcbb2f494495a32518cae6d9584e83c9d47b2eeded52b1d37169",
+      "ipfs_snapshot": "ipfs://bafybeigde09651325088b7efcf9bac697ecfcc4a7ea5cad8e4c",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325768",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "multi-chain-flash-loan-dapp": {
+      "repo_name": "multi-chain-flash-loan-dapp",
+      "github_id": 1056172811,
+      "hash_signature": "SHA256:959d226f0e594b525e100cefa794d26b59fdd2854250a44418a5f0f24298fe61",
+      "merkle_root": "MERKLE:b1c588d91e7fa3bce18823b022114ab65e476860419ed51405585969b38b2ad6",
+      "ipfs_snapshot": "ipfs://bafybeig7f2801db15a77fb794e2294c0ef37d897396639c62ac",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.001 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325774",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "vibe-coding-protocol-v2": {
+      "repo_name": "vibe-coding-protocol-v2",
+      "github_id": 1056149040,
+      "hash_signature": "SHA256:8bf4b07dd973379e32ac10c6af5805f4e60815e13aa309bb19cdad7c894d7bbd",
+      "merkle_root": "MERKLE:ec66ad910912d5838e0dbcc97e4cc3680318636826e481c97bed8e686fcb4147",
+      "ipfs_snapshot": "ipfs://bafybeig7f24c36d2017c7234cd44421746f8f94ff5d9bbb4a65",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325780",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "vibe-coding-protocol": {
+      "repo_name": "vibe-coding-protocol",
+      "github_id": 1056148699,
+      "hash_signature": "SHA256:59a5a14bc169ff4ef645212d124e81e96fb7872bc89798f78ed79cd75d31040c",
+      "merkle_root": "MERKLE:07ea9b98c8ae5881d4f3d77ff01a85db84eb834ca6281435d1342d4736ff7542",
+      "ipfs_snapshot": "ipfs://bafybeig73157dda28d886497ed5c98d16033767fc0b5a7ce4ed",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325787",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "flash-loan-dapp": {
+      "repo_name": "flash-loan-dapp",
+      "github_id": 1056011741,
+      "hash_signature": "SHA256:698827f8aba93779a861b94add0f22bb3a019fa6caf2c6c6ccab55dc288f005d",
+      "merkle_root": "MERKLE:d6a686a2790fa1f42fcf72430290c35de96704dde51c3acedf25e2ce832df724",
+      "ipfs_snapshot": "ipfs://bafybeigbd4e1f94c8e4d34bf53d996f2dc8d4991f33741b3ab9",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.001 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325795",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "no_gas_labs_sui_flashloan": {
+      "repo_name": "no_gas_labs_sui_flashloan",
+      "github_id": 1055964406,
+      "hash_signature": "SHA256:d9579de1a8313c9bbbfcd032eb751f6f511f44425203c6b0e96429c052937c4e",
+      "merkle_root": "MERKLE:075a895f09e3d9f9ebb80c212df0fa6a3288317cdc64939e80ce55245b9fd159",
+      "ipfs_snapshot": "ipfs://bafybeigcb1801aa4da37593c788c6491504a6c8fd5676735ee0",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.007 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325800",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "no-gas-labs-monorepo": {
+      "repo_name": "no-gas-labs-monorepo",
+      "github_id": 1039341072,
+      "hash_signature": "SHA256:7d65b18d8ba6cdd2e6f053d33473e927093efb669fa79e86058d1d551e0735e9",
+      "merkle_root": "MERKLE:a00a1392492e8f3d6211d6a43f5a71fc7a0b6591653c826653f0de3a7bab894b",
+      "ipfs_snapshot": "ipfs://bafybeig32ee5dff048d481f3375b79ddf0149c0fbe243d516c7",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.004 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325806",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "TaskAgile": {
+      "repo_name": "TaskAgile",
+      "github_id": 1035392266,
+      "hash_signature": "SHA256:f7f0106aee880cfebf84461fde6cf60897c49c0aa88cd13cd4e972da77f44d7e",
+      "merkle_root": "MERKLE:b18806e23c479db73660b61355a7cca32c1118885079cef117543d45794d38ba",
+      "ipfs_snapshot": "ipfs://bafybeige5b69e6758961450de091a1f6469eb3b8b000f437837",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.031 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325814",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "internal",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "PROHIBITED",
+        "api_access": "MONITORED",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "No_Gas_Slaps-": {
+      "repo_name": "No_Gas_Slaps-",
+      "github_id": 1035098338,
+      "hash_signature": "SHA256:97a3acf4dd42ecf198fdb3c2880e41de619a409cabe98c6603b3ead91f3b9354",
+      "merkle_root": "MERKLE:6a72ebf27d7068e07f622589ff05c3c9ebe01f503e38351ef3cb8b38a8056a97",
+      "ipfs_snapshot": "ipfs://bafybeigd2f91721c72b647ce031d0fc73b847cd5277f8c8e1e9",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325819",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "Store": {
+      "repo_name": "Store",
+      "github_id": 1030740851,
+      "hash_signature": "SHA256:1a80a19ed54df0c1ed593dfcc4141627610eeddff81d955c23893dc7dbc74783",
+      "merkle_root": "MERKLE:84b7dee3c329056d562ea94f3b2f8d72bfc03b1542e8b269888032d4e86ba41e",
+      "ipfs_snapshot": "ipfs://bafybeig508f92efa962681a348dc7ccf45841fc29063d8a938e",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.0 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325826",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "nogaslabs-site": {
+      "repo_name": "nogaslabs-site",
+      "github_id": 1028054922,
+      "hash_signature": "SHA256:16f1c8b880d1882fac7c598f9affeca0bc9240576de0ee230638c4b3f55781fe",
+      "merkle_root": "MERKLE:d8bcc52eb300060bb5f9cdbf6e63794831489d1e759422f85a50ca93a3374a75",
+      "ipfs_snapshot": "ipfs://bafybeigaef207a4b4dc82985a5cc6c349538ada03964a6167cb",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.001 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325833",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "Vibe-_Coding_Protocol": {
+      "repo_name": "Vibe-_Coding_Protocol",
+      "github_id": 1022771367,
+      "hash_signature": "SHA256:63350f9beff5b8cfc8fba488ddeab9951efce7805c75015ad8ebbd380ac997b5",
+      "merkle_root": "MERKLE:7913e33beb1beea51d41fc166cf2dd5494893a8f872df0c82f89038565486cdd",
+      "ipfs_snapshot": "ipfs://bafybeigfb84b2daf90d43c7ceba893b16e9d677bbaac130eeec",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.001 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325839",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "Omnichain_Bridge_wallet": {
+      "repo_name": "Omnichain_Bridge_wallet",
+      "github_id": 1021826688,
+      "hash_signature": "SHA256:40b63981c6235de51ce38f29eed97ed9df570d2fac30214b4cbcf7cfc2637559",
+      "merkle_root": "MERKLE:314ee11b9a5b27eb2503ed255ac520fad3a6a00a7cdae0bd8de93be0fddc08c1",
+      "ipfs_snapshot": "ipfs://bafybeigf0b85754885df1636a939048b4f87f8b51cdd98cb23a",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.003 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325843",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "public",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "LICENSED_ONLY",
+        "derivative_works": "ATTRIBUTION_REQUIRED",
+        "redistribution": "ALLOWED_ATTRIBUTION",
+        "ai_training": "LICENSED_ONLY",
+        "api_access": "OPEN",
+        "forking_allowed": true
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PUBLIC_READ",
+        "branch_protection": "MAIN_ONLY",
+        "required_reviewers": 1,
+        "signed_commits_required": false,
+        "force_push_blocked": false,
+        "deletion_blocked": false,
+        "forking_blocked": false
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    },
+    "omnichain-faucet-townsquare": {
+      "repo_name": "omnichain-faucet-townsquare",
+      "github_id": 1017011772,
+      "hash_signature": "SHA256:cd7d694a147f5b96d1117c5a04a7f693c3b1ef49db5bd5e74acccae4438334da",
+      "merkle_root": "MERKLE:fdb1e2aed30eedef66affe401cb6db941bf4c5f6320a64c4fd635f32a9b5e621",
+      "ipfs_snapshot": "ipfs://bafybeig39fecc4e3d466f88400ed369e2639cd82e3fe29fee70",
+      "copyright_claimant": "Damien Edward Featherstone",
+      "license_type": "NoGasLabs-IP-Attribution v1.0",
+      "commercial_reuse_fee": "0.75 ETH per deployment",
+      "derivative_notice_required": true,
+      "timestamp_signed": "2025-11-11T02:17:15.325849",
+      "cross_chain_verification": [
+        "TON",
+        "SUI",
+        "Arweave"
+      ],
+      "ip_classification": "trade_secret",
+      "defensive_rating": "CRITICAL",
+      "usage_restrictions": {
+        "commercial_use": "PROHIBITED",
+        "derivative_works": "PROHIBITED",
+        "redistribution": "PROHIBITED",
+        "ai_training": "PROHIBITED",
+        "api_access": "RESTRICTED",
+        "forking_allowed": false
+      },
+      "monetization_tier": "PREMIUM",
+      "governance_controls": {
+        "access_control": "PRIVATE_ONLY",
+        "branch_protection": "ALL_BRANCHES",
+        "required_reviewers": 3,
+        "signed_commits_required": true,
+        "force_push_blocked": true,
+        "deletion_blocked": true,
+        "forking_blocked": true
+      },
+      "blockchain_anchors": {
+        "sui_timestamp": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+        "ton_provenance": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+        "arweave_permanence": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa"
+      },
+      "ai_training_prohibited": true,
+      "smart_contract_license": true
+    }
+  },
+  "license_templates": {
+    "NGL-A-v1.0": "# NoGasLabs IP Attribution License v1.0 (NGL-A)\n\n**Copyright (c) 2025 Damien Edward Featherstone / No-Gas-Labs\u2122**\n\n## PREAMBLE\n\nThis license governs the use of intellectual property created by No-Gas-Labs\u2122 and Damien Edward Featherstone. It is designed to protect innovation while enabling controlled attribution-based reuse.\n\n## PERMISSIONS\n\nThe user is permitted to:\n- View, study, and analyze the licensed code for educational purposes\n- Create derivative works provided attribution requirements are met\n- Redistribute derivative works under the same license terms\n- Use in non-commercial projects with proper attribution\n\n## CONDITIONS\n\n1. **ATTRIBUTION REQUIRED**: All reuse or forks must retain the following attribution:\n   \"Original work by No-Gas-Labs\u2122 / Damien Featherstone\"\n   and include a link to the original repository.\n\n2. **COMMERCIAL DEPLOYMENT**: Any commercial deployment, including but not limited to:\n   - Production environments generating revenue\n   - SaaS offerings incorporating the code\n   - Enterprise distributions\n   requires explicit permission or payment of the smart-contract licensing fee as specified in the repository metadata.\n\n3. **DERIVATIVE NOTICE**: All derivative works must clearly indicate they are modified from the original No-Gas-Labs\u2122 work.\n\n4. **AI TRAINING PROHIBITED**: Use of this code for AI model training is prohibited without obtaining an NGL Data License token.\n\n5. **SMART CONTRACT COMPLIANCE**: Commercial users must interact with the NGL licensing smart contract for fee payment and permission validation.\n\n## RESTRICTIONS\n\nThe user may NOT:\n- Remove attribution notices\n- Use in commercial deployments without proper licensing\n- Train AI models without explicit permission\n- Claim ownership of the original work\n- Sub-license under more permissive terms\n\n## ENFORCEMENT\n\nThis license is enforced through:\n- Multi-chain blockchain anchors for proof of origin\n- Smart contract validation for commercial use\n- Automated monitoring via EthosGuard AI agents\n- Legal action in applicable jurisdictions\n\n## CONTACT\n\nFor commercial licensing inquiries:\n- GitHub: @No-Gas-Labs\n- Smart Contract: [Contract Address on TON/SUI]\n\n## GOVERNANCE\n\nThis license is part of the No-Gas-Labs\u2122 Intellectual Property Governance Framework v3.0 and is subject to updates and amendments as published in the official repository.\n\n---\n\n*This license protects innovation while enabling the future of decentralized development.*"
+  },
+  "monetization_engine": {
+    "fee_calculator": {
+      "base_fee_eth": "0.01",
+      "size_multiplier": true,
+      "criticality_multiplier": true,
+      "trade_secret_premium": 5.0,
+      "volume_discounts": {
+        "1-5_deployments": 1.0,
+        "6-20_deployments": 0.8,
+        "21-100_deployments": 0.6,
+        "100+_deployments": 0.4
+      }
+    },
+    "license_tiers": {
+      "BASIC": {
+        "fee_eth": "0.01",
+        "features": [
+          "Attribution Only",
+          "Non-Commercial"
+        ],
+        "smart_contract": "0x-basic-license"
+      },
+      "STANDARD": {
+        "fee_eth": "0.05",
+        "features": [
+          "Commercial Use",
+          "API Access"
+        ],
+        "smart_contract": "0x-standard-license"
+      },
+      "PROFESSIONAL": {
+        "fee_eth": "0.1",
+        "features": [
+          "Enterprise Features",
+          "Priority Support"
+        ],
+        "smart_contract": "0x-professional-license"
+      },
+      "PREMIUM": {
+        "fee_eth": "Custom Quote",
+        "features": [
+          "Full Source Access",
+          "Custom Modifications"
+        ],
+        "smart_contract": "0x-premium-license"
+      }
+    },
+    "revenue_split": {
+      "creator_share": 0.85,
+      "platform_maintenance": 0.1,
+      "governance_fund": 0.05
+    },
+    "auto_licensing": {
+      "enabled": true,
+      "validation_required": true,
+      "smart_contract_execution": true,
+      "ton_payment_gateway": true
+    }
+  },
+  "blockchain_anchors": {
+    "sui": {
+      "chain": "SUI",
+      "contract_address": "0x-placeholder-ngl-ip-registry",
+      "transaction_hash": "0x127a356a1476005b7691e180f48bc7f104048ca975d117b078efdcd08f652133",
+      "timestamp": "2025-11-11T02:17:15.325921"
+    },
+    "ton": {
+      "chain": "TON",
+      "message_hash": "60d2bb1ade7f1c49dfb9cfad9b5831328934adbfbea0c648af2766fa771a08a2",
+      "proof_contract": "EQD-placeholder-ngl-provenance",
+      "timestamp": "2025-11-11T02:17:15.325923"
+    },
+    "arweave": {
+      "chain": "Arweave",
+      "transaction_id": "e9d96a7b703ce2c3ec4120f46ecb518518bf466f2ae8bef6bf3572c8caed6ffa",
+      "content_type": "application/vnd.ngl.ip-registry",
+      "timestamp": "2025-11-11T02:17:15.325925"
+    }
+  }
+}

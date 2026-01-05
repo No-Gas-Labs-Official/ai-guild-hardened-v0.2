@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">No-Gas-Labs Ops</string>
+    <string name="title_activity_main">No-Gas-Labs Ops</string>
+    <string name="package_name">com.nogaslabs.ops</string>
+    <string name="custom_url_scheme">com.nogaslabs.ops</string>
+</resources>

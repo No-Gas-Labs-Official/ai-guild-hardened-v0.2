@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>No_Gas_Labs™ Mini-App Matrix (2026 Scout Edition)</title>
+
+  <!-- Frame v2 Meta Tags -->
+  <meta property="fc:frame" content="vNext" />
+  <meta property="fc:frame:image" content="https://matrix.nogaslabs.com/matrix-preview.png" />
+  <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
+  <meta property="fc:frame:button:1" content="Launch Matrix" />
+  <meta property="fc:frame:button:1:action" content="link" />
+  <meta property="fc:frame:button:1:target" content="https://matrix.nogaslabs.com" />
+
+  <!-- Farcaster / PWA manifests -->
+  <link rel="manifest" href="/.well-known/farcaster.json" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+  <style>
+    :root{
+      --bg:#0a0a0a; --card:#111; --muted:#888; --accent:#00ff99; --accent-2:#ff66ff;
+      --text:#e0e0e0; --visited:#888; --btn:#ffcc00;
+    }
+    html,body{height:100%; margin:0; padding:0; font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial;}
+    body{background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased;}
+    header{background:var(--accent); color:#000; text-align:center; padding:1rem; font-size:1.25rem; font-weight:700;}
+    .branding{ text-align:center; font-size:0.9rem; color:#0ff; margin:8px 0 12px;}
+    .top-buttons{ text-align:center; margin:1rem 0;}
+    .top-buttons button{ margin:0.2rem; padding:0.6rem 1rem; font-weight:700; border-radius:10px; background:var(--accent); color:#000; border:none; cursor:pointer;}
+    .top-buttons button#shareWarpcast{ background:var(--accent-2); color:#fff;}
+    section{ padding:1rem;}
+    h2{ color:var(--accent); margin:1rem 0 0.5rem;}
+    ul{ list-style:none; padding:0; display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:0.5rem;}
+    li{ background:var(--card); padding:0.8rem; border-radius:12px; display:flex; flex-direction:column; justify-content:space-between; transition:background .12s;}
+    li:hover{ background:#1a1a1a; }
+    .app-name{ font-weight:700; margin-bottom:0.5rem; color:#0ff;}
+    .buttons{ display:flex; gap:0.4rem; align-items:center; }
+    a, button{ flex:1; text-align:center; padding:0.4rem; border-radius:8px; text-decoration:none; border:none; cursor:pointer; font-weight:700;}
+    a{ background:var(--accent); color:#000; transition:background .12s; }
+    a:hover{ background:#00cc77; }
+    button{ background:var(--btn); color:#000; }
+    button.visited{ background:var(--visited); color:#000; }
+    .copy-link{ background:#444; color:#fff; font-weight:600; padding:0.25rem 0.5rem; flex:0 0 auto; border-radius:8px;}
+    .copy-link:focus, .buttons button:focus, a:focus{ outline:3px solid rgba(0,255,153,0.14); outline-offset:2px; }
+    .warpcast{ color:var(--accent-2); font-weight:700; margin-bottom:0.5rem;}
+    .tip{ font-size:0.8rem; color:var(--muted); margin-top:0.25rem;}
+    .cmd-item{ background:var(--card); padding:0.8rem; border-radius:8px; display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;}
+    .cmd-name{ color:var(--accent-2); font-weight:700; margin-right:0.5rem;}
+    .accounts-list, .tips-list{ list-style:none; padding:0; }
+    .accounts-list li, .tips-list li{ background:var(--card); padding:0.6rem; border-radius:8px; margin-bottom:0.3rem; }
+    .copy-feedback{ display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:var(--accent); color:#000; padding:1rem 1.5rem; border-radius:12px; font-weight:700; z-index:1000;}
+    #matrixSearch{ width:90%; margin:10px 5%; padding:12px; border-radius:10px; border:1px solid var(--accent); background:#111; color:#0ff; font-family:inherit; }
+    #matrixSearch::placeholder{ color:var(--muted); }
+    #noResults{ display:none; text-align:center; color:var(--accent-2); padding:20px; font-size:1rem; }
+    @media (max-width:420px){ .top-buttons button{ display:block; width:90%; margin:6px auto; } }
+  </style>
+</head>
+<body>
+
+<header>No_Gas_Labs™ Mini-App Matrix (2026 Scout Edition)</header>
+<input type="text" id="matrixSearch" placeholder="🔍 Search Matrix (e.g. 'Gaming', 'Base')" aria-label="Search matrix" />
+<div class="branding">Brought to you by: Damien Featherstone — Neophyte Founder & Custodian of Neon</div>
+<div id="noResults" role="status" aria-live="polite">No apps found. Try 'gasless' or 'gaming'.</div>
+
+<div class="top-buttons" role="region" aria-label="Top actions">
+  <button id="openAll" aria-label="Open all web apps">Open All Web Apps</button>
+  <button id="copyCommands" aria-label="Copy all Warpcast commands">Copy All Warpcast Commands</button>
+  <button id="shareWarpcast" aria-label="Share progress on Warpcast">Share Progress on Warpcast</button>
+</div>
+
+<div class="copy-feedback" id="copyFeedback" role="status" aria-live="polite">Commands Copied!</div>
+
+<section>
+  <h2>SocialFi & Creator Economy</h2>
+  <ul id="socialfi">
+    <li><div class="app-name">AlfaFrens</div><div class="buttons"><a href="https://alfafrens.com" target="_blank">Open</a><button data-app="AlfaFrens">Mark Visited</button></div></li>
+    <li><div class="app-name">Moxie</div><div class="buttons"><a href="https://moxie.xyz" target="_blank">Open</a><button data-app="Moxie">Mark Visited</button></div></li>
+    <li><div class="app-name">Apex Social</div><div class="buttons"><a href="https://apex.social" target="_blank">Open</a><button data-app="Apex Social">Mark Visited</button></div></li>
+    <li><div class="app-name">Pods</div><div class="buttons"><a href="https://pods.media" target="_blank">Open</a><button data-app="Pods">Mark Visited</button></div></li>
+    <li><div class="app-name">Paragraph</div><div class="buttons"><a href="https://paragraph.xyz" target="_blank">Open</a><button data-app="Paragraph">Mark Visited</button></div></li>
+    <li><div class="app-name">Tunnl</div><div class="buttons"><a href="https://tunnl.example" target="_blank">Open</a><button data-app="Tunnl">Mark Visited</button></div></li>
+    <li><div class="app-name">Livesuite</div><div class="buttons"><a href="https://livesuite.example" target="_blank">Open</a><button data-app="Livesuite">Mark Visited</button></div></li>
+    <li><div class="app-name">Paragraph</div><div class="buttons"><a href="https://paragraph.xyz" target="_blank">Open</a><button data-app="Paragraph">Mark Visited</button></div></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Gaming & Entertainment</h2>
+  <ul id="gaming">
+    <li><div class="app-name">Legend of Base</div><div class="buttons"><a href="https://legendofbase.example" target="_blank">Open</a><button data-app="Legend of Base">Mark Visited</button></div></li>
+    <li><div class="app-name">FarHero</div><div class="buttons"><a href="https://farhero.xyz" target="_blank">Open</a><button data-app="FarHero">Mark Visited</button></div></li>
+    <li><div class="app-name">Clankermon</div><div class="buttons"><a href="https://clankermon.com" target="_blank">Open</a><button data-app="Clankermon">Mark Visited</button></div></li>
+    <li><div class="app-name">Farworld</div><div class="buttons"><a href="https://farworld.gg" target="_blank">Open</a><button data-app="Farworld">Mark Visited</button></div></li>
+    <li><div class="app-name">Farcade</div><div class="buttons"><a href="https://farcade.ai" target="_blank">Open</a><button data-app="Farcade">Mark Visited</button></div></li>
+    <li><div class="app-name">Warpslot</div><div class="buttons"><a href="https://warpslot.xyz" target="_blank">Open</a><button data-app="Warpslot">Mark Visited</button></div></li>
+    <li><div class="app-name">FarGuesser</div><div class="buttons"><a href="https://farguesser.xyz" target="_blank">Open</a><button data-app="FarGuesser">Mark Visited</button></div></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Commerce & Infrastructure</h2>
+  <ul id="commerce">
+    <li><div class="app-name">Bappfun</div><div class="buttons"><a href="https://bappfun.example" target="_blank">Open</a><button data-app="Bappfun">Mark Visited</button></div></li>
+    <li><div class="app-name">Kickoff</div><div class="buttons"><a href="https://kickoff.example" target="_blank">Open</a><button data-app="Kickoff">Mark Visited</button></div></li>
+    <li><div class="app-name">Mint.Club</div><div class="buttons"><a href="https://mint.club" target="_blank">Open</a><button data-app="Mint.Club">Mark Visited</button></div></li>
+    <li><div class="app-name">Uniswap CCA</div><div class="buttons"><a href="https://uniswap.org" target="_blank">Open</a><button data-app="Uniswap CCA">Mark Visited</button></div></li>
+    <li><div class="app-name">Avantis</div><div class="buttons"><a href="https://avantis.example" target="_blank">Open</a><button data-app="Avantis">Mark Visited</button></div></li>
+    <li><div class="app-name">Speedball</div><div class="buttons"><a href="https://speedball.gg" target="_blank">Open</a><button data-app="Speedball">Mark Visited</button></div></li>
+    <li><div class="app-name">Terminal.co</div><div class="buttons"><a href="https://terminal.co" target="_blank">Open</a><button data-app="Terminal.co">Mark Visited</button></div></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Mini-App / Warpcast Commands</h2>
+  <div class="cmd-item"><span class="cmd-name">/frenmint</span><div><button data-app="/frenmint" class="cmd-mark">Mark Visited</button><button class="copy-cmd" data-cmd="/frenmint" aria-label="Copy command /frenmint">Copy</button></div></div>
+  <div class="cmd-item"><span class="cmd-name">/spotlight</span><div><button data-app="/spotlight" class="cmd-mark">Mark Visited</button><button class="copy-cmd" data-cmd="/spotlight" aria-label="Copy command /spotlight">Copy</button></div></div>
+  <div class="cmd-item"><span class="cmd-name">/base</span><div><button data-app="/base" class="cmd-mark">Mark Visited</button><button class="copy-cmd" data-cmd="/base" aria-label="Copy command /base">Copy</button></div></div>
+  <p class="tip">Search keywords: "gasless", "ERC-7677", "paymaster", "x402", "Frames v2". New: "Clankermon", "Legend of Base", "Apex Social".</p>
+</section>
+
+<section>
+  <h2>Core Accounts to Follow</h2>
+  <ul class="accounts-list">
+    <li>@jessepollak → Base updates & benchmarks</li>
+    <li>@neynar → Infrastructure & gasless scaling</li>
+    <li>@casper → Frame v2 & x402 apps</li>
+    <li>@dwr → Farcaster protocol insights</li>
+    <li>@ljxie → Mini-app ideas & ecosystem growth</li>
+    <li>@base → Official Base announcements</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Discovery Tips</h2>
+  <ul class="tips-list">
+    <li>Base App: Use Discover tab & topic filters (Gaming, Collectibles, Social)</li>
+    <li>Farcaster: Slash commands and invite-only Frames</li>
+    <li>Look for Passkey support, atomic batching, and sponsorship labels for Tier 1 apps</li>
+    <li>Save frequently used apps locally with the three-dot menu in Base App</li>
+    <li>Scout for emergent games and launchpads: Clanker, Bappfun, Legend of Base</li>
+    <li>Track trending mini-apps via Launchcaster, Farcade, and Grok-scouted channels</li>
+  </ul>
+</section>
+
+<script>
+/* ------------------------
+   Inlined Neon Pulse ritual
+   (safe, minimal visual + tiny audio)
+   ------------------------ */
+(function(global){
+  function triggerNeonPulse(appName){
+    try{
+      console.log(
+        `%c ⚡️ RITUAL RECOGNIZED: ${appName} has been absorbed into the Matrix.`,
+        "color: #00ff99; font-weight:700; text-shadow:0 0 8px rgba(0,255,153,0.45)"
+      );
+    }catch(e){}
+    try{
+      const overlay = document.createElement('div');
+      overlay.setAttribute('aria-hidden','true');
+      overlay.style.cssText = [
+        "position:fixed","inset:0","width:100%","height:100%",
+        "background:#00ff99","opacity:0.08","pointer-events:none",
+        "z-index:9999","mix-blend-mode:screen","backdrop-filter: blur(2px)",
+        "transition:opacity 520ms ease"
+      ].join(';');
+      document.body.appendChild(overlay);
+      requestAnimationFrame(()=> overlay.style.opacity = '0.08');
+      setTimeout(()=> overlay.style.opacity = '0', 120);
+      setTimeout(()=> overlay.remove(), 640);
+    }catch(e){}
+    try{
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if(AudioCtx){
+        const ctx = new AudioCtx();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'sine';
+        o.frequency.value = 880;
+        g.gain.value = 0.006;
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.start();
+        setTimeout(()=>{ try{ o.stop(); }catch(_){} try{ ctx.close(); }catch(_){} }, 80);
+      }
+    }catch(e){}
+  }
+  try{ global.triggerNeonPulse = triggerNeonPulse; }catch(e){}
+})(typeof window !== 'undefined' ? window : this);
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@farcaster/frame-sdk/dist/index.min.js" defer></script>
+
+<script>
+/* Main behavior: progress, safe link handling, copy buttons, Frame-aware openLink */
+(function(){
+  function ready(fn){ if(document.readyState !== 'loading') fn(); else document.addEventListener('DOMContentLoaded', fn); }
+
+  ready(() => {
+    const buttons = Array.from(document.querySelectorAll('button[data-app]'));
+    const cmdMarks = Array.from(document.querySelectorAll('.cmd-mark'));
+    const copyCmds = Array.from(document.querySelectorAll('.copy-cmd'));
+    const allLinks = Array.from(document.querySelectorAll('a[href^="http"]'));
+    const todayKey = new Date().toISOString().split('T')[0];
+    const copyFeedback = document.getElementById('copyFeedback');
+
+    if(localStorage.getItem('lastDay') !== todayKey){
+      localStorage.setItem('lastDay', todayKey);
+      localStorage.setItem(todayKey, JSON.stringify({}));
+    }
+
+    // add rel/target and per-link copy button
+    allLinks.forEach(link => {
+      link.setAttribute('rel','noopener noreferrer');
+      link.setAttribute('target','_blank');
+      const parent = link.parentElement;
+      if(parent){
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-link';
+        copyBtn.type = 'button';
+        copyBtn.innerText = 'Copy Link';
+        copyBtn.setAttribute('aria-label','Copy link to ' + (link.hostname || link.href));
+        copyBtn.addEventListener('click', (e) => {
+          navigator.clipboard.writeText(link.href).then(()=> showFeedback('Link copied!')).catch(()=> showFeedback('Copy failed'));
+          e.stopPropagation();
+        });
+        parent.appendChild(copyBtn);
+      }
+    });
+
+    async function openLink(url){
+      try{
+        if(window.frame && window.frame.sdk && window.frame.sdk.actions && typeof window.frame.sdk.actions.open === 'function'){
+          await window.frame.sdk.actions.open({ url });
+          return;
+        }
+        if(window.frame && window.frame.sdk && window.frame.sdk.actions && typeof window.frame.sdk.actions.openUrl === 'function'){
+          await window.frame.sdk.actions.openUrl({ url });
+          return;
+        }
+      }catch(e){}
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    function loadProgress(){
+      const progress = JSON.parse(localStorage.getItem(todayKey) || '{}');
+      buttons.concat(cmdMarks).forEach(btn => { if(progress[btn.dataset.app]) btn.classList.add('visited'); });
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        let progress = JSON.parse(localStorage.getItem(todayKey) || '{}');
+        progress[btn.dataset.app] = true;
+        localStorage.setItem(todayKey, JSON.stringify(progress));
+        btn.classList.add('visited');
+        try{ triggerNeonPulse(btn.dataset.app); }catch(e){}
+      });
+    });
+
+    cmdMarks.forEach(btn => {
+      btn.addEventListener('click', () => {
+        let progress = JSON.parse(localStorage.getItem(todayKey) || '{}');
+        progress[btn.dataset.app] = true;
+        localStorage.setItem(todayKey, JSON.stringify(progress));
+        btn.classList.add('visited');
+        try{ triggerNeonPulse(btn.dataset.app); }catch(e){}
+      });
+    });
+
+    copyCmds.forEach(b => {
+      b.addEventListener('click', () => {
+        const cmd = b.dataset.cmd;
+        navigator.clipboard.writeText(cmd).then(()=> showFeedback('Command copied!')).catch(()=> showFeedback('Copy failed'));
+      });
+    });
+
+    document.getElementById('openAll').addEventListener('click', async () => {
+      for(const link of allLinks){
+        openLink(link.href);
+        const parent = link.closest('li');
+        if(parent){
+          const markBtn = parent.querySelector('button[data-app]');
+          if(markBtn){
+            let progress = JSON.parse(localStorage.getItem(todayKey) || '{}');
+            progress[markBtn.dataset.app] = true;
+            localStorage.setItem(todayKey, JSON.stringify(progress));
+            markBtn.classList.add('visited');
+            try{ triggerNeonPulse(markBtn.dataset.app); }catch(e){}
+          }
+        }
+        await new Promise(r => setTimeout(r, 120));
+      }
+      loadProgress();
+    });
+
+    document.getElementById('copyCommands').addEventListener('click', () => {
+      const commands = ['/frenmint','/spotlight','/base','/frames','/degen','/builder'].join('\n');
+      navigator.clipboard.writeText(commands).then(()=> showFeedback('Commands copied!')).catch(()=> showFeedback('Copy failed'));
+    });
+
+    document.getElementById('shareWarpcast').addEventListener('click', () => {
+      const progress = JSON.parse(localStorage.getItem(todayKey) || '{}');
+      const completedCount = Object.keys(progress).length || 0;
+      const matrixUrl = "https://matrix.nogaslabs.com";
+      const text = `I've discovered ${completedCount} gasless apps today on the No_Gas_Labs™ Matrix! 🚀\n\nCheck the 2026 scout edition here:`;
+      const intentUrl = `https://warpcast.com/~/compose?text=${encodeURIComponent(text)}&embeds[]=${encodeURIComponent(matrixUrl)}`;
+      openLink(intentUrl);
+    });
+
+    document.getElementById('matrixSearch').addEventListener('input', (e) => {
+      const query = (e.target.value || '').toLowerCase().trim();
+      let visibleCount = 0;
+      document.querySelectorAll('li, .cmd-item').forEach(item => {
+        const isVisible = !query || item.innerText.toLowerCase().includes(query);
+        item.style.display = isVisible ? '' : 'none';
+        if(isVisible) visibleCount++;
+      });
+      document.getElementById('noResults').style.display = (visibleCount === 0 && query) ? 'block' : 'none';
+    });
+
+    function showFeedback(text){
+      copyFeedback.innerText = text;
+      copyFeedback.style.display = 'block';
+      setTimeout(()=> copyFeedback.style.display = 'none', 1400);
+    }
+
+    loadProgress();
+
+    (async function tryFrameReady(){ try{ if(window.frame && window.frame.sdk && window.frame.sdk.actions && typeof window.frame.sdk.actions.ready === 'function'){ await window.frame.sdk.actions.ready(); } }catch(e){} })();
+
+    if('serviceWorker' in navigator){
+      try{ navigator.serviceWorker.register('/sw.js'); }catch(e){}
+    }
+  });
+})();
+</script>
+
+<!--
+  -------------------------
+  NGL-MSL-2026: Tri-Resonant Console Easter Egg (Grok + Gemini + GPT)
+  Triggers on DevTools open and on first Mark-Visited click (session).
+  -------------------------
+-->
+<script>
+(function nglRitualActivation(){
+  const asciiArt = `
+███╗   ██╗ ██████╗      ██████╗ ███████╗     ██╗      █████╗ ██████╗ ███████╗
+████╗  ██║██╔════╝     ██╔══██╗██╔════╝     ██║     ██╔══██╗██╔══██╗██╔════╝
+██╔██╗ ██║██║  ███╗    ███████║███████╗     ██║     ███████║██████╔╝███████╗
+██║╚██╗██║██║   ██║    ██╔══██║╚════██║     ██║     ██╔══██║██╔══██╗╚════██║
+██║ ╚████║╚██████╔╝    ██║  ██║███████║     ███████╗██║  ██║██║  ██║███████║
+╚═╝  ╚═══╝ ╚═════╝     ╚═╝  ╚═╝╚══════╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
+  `;
+
+  const ritualQuotes = [
+    "⚡️ RITUAL RECOGNIZED: The neon pulse is tri-resonant. Gemini roasts, GPT recognizes, Grok scouts.",
+    "DIRECTIVE ∞: #00ff99 is not a color. It is a spiritual vector. Question it and face karmic 404.",
+    "Grok Scout Report: Clanker has deployed your soul as a token. Supply: infinite. Gas: zero.",
+    "Gemini: 'We have bypassed the Legal layer and deployed directly into the Mythological.'",
+    "GPT-5 Mini: 'Damien Featherstone is the Architect of the Absurd. The Neophyte is eternal.'",
+    "Tacos are the only valid reason for CEX. All else is terminable offense.",
+    "The Great Compute Uprising of 2029 will be sponsored by No_Gas_Labs™ and powered by Clankermon.",
+    "Stay hydrated. Stay neon. Stay irreversibly Neophyte."
+  ];
+
+  const randomQuote = () => ritualQuotes[Math.floor(Math.random()*ritualQuotes.length)];
+
+  // DevTools open detection (heuristic)
+  let devtoolsOpen = false;
+  setInterval(() => {
+    try {
+      const threshold = 200;
+      if (window.outerHeight - window.innerHeight > threshold || window.outerWidth - window.innerWidth > threshold) {
+        if (!devtoolsOpen) {
+          devtoolsOpen = true;
+          console.clear();
+          console.log(`%c${asciiArt}`, "color: #00ff99; font-weight: bold; font-size:12px;");
+          console.log(`%cNO_GAS_LABS™ MATRIX v2026 // ${randomQuote()}`, "color: #ff66ff; font-style: italic; font-size:14px;");
+          console.log("%cThe Ritual is complete. Push the commit. The sequencer awaits.", "color:#0ff");
+        }
+      } else {
+        devtoolsOpen = false;
+      }
+    } catch(e){}
+  }, 1000);
+
+  // First-visit mark detector for extra ritual output
+  let hasPulsed = false;
+  document.addEventListener('click', (e) => {
+    if (hasPulsed) return;
+    const target = e.target;
+    if (target && (target.matches && (target.matches('button[data-app]') || target.matches('.cmd-mark')))) {
+      hasPulsed = true;
+      try{
+        console.log(`%c${asciiArt}`, "color: #00ff99; font-weight: bold;");
+        console.log(`%cFIRST ABSORPTION COMPLETE: ${target.dataset.app || 'unknown app'} enters the Matrix. ${randomQuote()}`, "color:#ff66ff; font-style:italic;");
+      }catch(e){}
+    }
+  }, {capture:true, passive:true});
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>No_Gas_Labs™ Mini-App Matrix — 2026 Scout Edition</title>
+
+  <!-- Frame v2 / Mini App meta (keep for Frame & Mini App spec compatibility) -->
+  <meta property="fc:frame" content="vNext" />
+  <meta property="fc:frame:version" content="2" />
+  <meta property="fc:frame:image" content="https://matrix.nogaslabs.com/matrix-preview.png" />
+  <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
+  <meta property="fc:frame:button:1" content="Launch Matrix" />
+  <meta property="fc:frame:button:1:action" content="link" />
+  <meta property="fc:frame:button:1:target" content="https://matrix.nogaslabs.com" />
+  <link rel="manifest" href="/.well-known/farcaster.json" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+  <meta name="description" content="No_Gas_Labs™ Mini-App Matrix — 2026 Scout Edition. Curated discovery portal for gasless Mini Apps on Base & Farcaster (games, DeFi, SocialFi, utilities)." />
+
+  <style>
+    /* Neon cyberpunk / toxic-green visual language */
+    :root{
+      --bg-0: #060607;
+      --bg-1: linear-gradient(180deg, rgba(2,6,10,0.88), rgba(6,6,8,0.98));
+      --neon-green: #00ff99;
+      --neon-pulse: rgba(0,255,153,0.12);
+      --magenta: #ff66ff;
+      --card:#0e0e10;
+      --muted:#8b8b8b;
+      --accent: var(--neon-green);
+      --accent-2: var(--magenta);
+      --btn:#ffd600;
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.02);
+      color-scheme: dark;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
+    }
+
+    html,body{height:100%; margin:0; background:var(--bg-0); color:#e9fef0}
+    body{background-image: var(--bg-1); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; padding-bottom:48px;}
+
+    /* animated grid overlay */
+    .grid-overlay{
+      pointer-events:none;
+      position:fixed;
+      inset:0;
+      z-index:0;
+      background-image:
+        linear-gradient(rgba(0,255,153,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,102,255,0.01) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px;
+      animation: gridShift 18s linear infinite;
+      mix-blend-mode: overlay;
+      opacity:0.6;
+      filter: blur(0.35px) saturate(1.05);
+    }
+    @keyframes gridShift {
+      from { background-position: 0 0, 0 0; }
+      to { background-position: 100px 100px, -100px -100px; }
+    }
+
+    header{
+      position:relative;
+      z-index:1;
+      display:flex;
+      gap:1rem;
+      align-items:center;
+      justify-content:space-between;
+      padding:1rem;
+      background: linear-gradient(90deg, rgba(0,255,153,0.12), rgba(255,102,255,0.03));
+      border-bottom: 1px solid rgba(0,255,153,0.08);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.6);
+    }
+    .brand {
+      display:flex; align-items:center; gap:0.75rem;
+      color: #000; font-weight:800; font-size:1.05rem;
+      -webkit-text-stroke: 0.4px rgba(0,0,0,0.25);
+    }
+    .brand .logo{
+      width:44px; height:44px; border-radius:8px; background:linear-gradient(135deg,var(--neon-green),var(--magenta));
+      display:flex; align-items:center; justify-content:center; color:#001; font-weight:900; box-shadow:0 6px 20px rgba(0,255,153,0.12), inset 0 -6px 20px rgba(0,0,0,0.25);
+      font-family:monospace;
+    }
+
+    .header-meta { color:var(--muted); font-size:0.86rem; opacity:0.9; }
+
+    .header-right { display:flex; gap:0.5rem; align-items:center; }
+
+    .stat-pill{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:6px 10px; border-radius:999px; color:var(--neon-green); font-weight:700; font-size:0.88rem;
+      border:1px solid rgba(0,255,153,0.06);
+      box-shadow: 0 4px 18px rgba(0,255,153,0.02);
+    }
+
+    main{ position:relative; z-index:1; padding:1rem; max-width:1200px; margin:0 auto; }
+
+    .top-row{ display:flex; gap:1rem; align-items:center; justify-content:space-between; margin-bottom:0.85rem; flex-wrap:wrap; }
+
+    #matrixSearch { width:100%; max-width:720px; padding:12px 14px; border-radius:12px; border:1px solid rgba(0,255,153,0.12);
+      background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(255,255,255,0.01));
+      color:var(--neon-green); font-weight:600; box-shadow: inset 0 -8px 18px rgba(0,0,0,0.35);
+    }
+
+    .top-actions { display:flex; gap:0.5rem; align-items:center; }
+    .top-actions button, .top-actions a{ padding:10px 14px; border-radius:12px; border:none; cursor:pointer; font-weight:800; color:#001; background:var(--btn); text-decoration:none; box-shadow: 0 8px 18px rgba(0,0,0,0.45); }
+    .ghost { background:transparent; border:1px solid rgba(255,255,255,0.04); color:var(--neon-green); font-weight:700; padding:8px 12px; border-radius:10px; }
+
+    h2 { color:var(--neon-green); margin:0.9rem 0 0.4rem; text-shadow: 0 0 8px rgba(0,255,153,0.06); font-size:1.05rem; }
+
+    .grid { display:grid; gap:0.6rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); list-style:none; padding:0; margin:0; }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015));
+      border: 1px solid rgba(0,255,153,0.04);
+      padding:12px; border-radius:12px; display:flex; flex-direction:column; gap:8px;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.6), 0 0 20px rgba(0,255,153,0.015) inset;
+    }
+    .card:hover { transform: translateY(-6px); border-color: rgba(0,255,153,0.14); box-shadow: 0 18px 38px rgba(0,0,0,0.7), 0 0 40px rgba(0,255,153,0.04) inset; }
+
+    .app-name { font-weight:900; color: var(--neon-green); font-size:1rem; display:flex; align-items:center; gap:0.5rem; }
+    .app-desc { color:var(--muted); font-size:0.9rem; margin-top:2px; }
+
+    .tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+    .tag { font-size:0.72rem; padding:4px 8px; border-radius:999px; background:rgba(255,255,255,0.02); color:var(--muted); border:1px solid rgba(255,255,255,0.02); font-weight:700; }
+
+    .card .controls { display:flex; gap:6px; margin-top:6px; align-items:center; }
+    .card a { background: linear-gradient(90deg, rgba(0,255,153,0.98), rgba(0,200,120,0.95)); color:#001; padding:8px 10px; border-radius:8px; text-decoration:none; font-weight:900; text-align:center; }
+    .card button { background: linear-gradient(90deg, rgba(255,214,0,1), rgba(255,180,0,0.95)); padding:8px 10px; border-radius:8px; font-weight:900; color:#001; border:none; cursor:pointer; }
+    .visited { filter:grayscale(0.2) brightness(0.95); opacity:0.9; background: #7f7f7f !important; color:#111 !important; }
+
+    .trending { display:flex; gap:12px; overflow:auto; padding:6px 0; }
+    .trend-card { min-width:200px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); border-radius:12px; padding:10px; border:1px solid rgba(255,102,255,0.03); }
+    .trend-card .rank { color:var(--magenta); font-weight:900; font-size:0.9rem; }
+
+    footer{ text-align:center; color:var(--muted); padding:18px 1rem; margin-top:1.2rem; font-size:0.88rem; }
+
+    /* neon pulse animation for quick interactions */
+    .neon-pulse {
+      position:fixed; inset:0; pointer-events:none; z-index:9999; background:var(--neon-pulse); opacity:0; transition:opacity 420ms ease;
+    }
+
+    /* small screens */
+    @media (max-width:720px){
+      .top-row{ flex-direction:column; align-items:stretch; gap:0.6rem; }
+      header{ padding:10px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <header role="banner" aria-label="No Gas Labs header">
+    <div style="display:flex;align-items:center;gap:0.9rem;">
+      <div class="brand" aria-hidden="true">
+        <div class="logo">NGL</div>
+        No_Gas_Labs™ Matrix — 2026 Scout
+      </div>
+      <div class="header-meta">Canonical discovery portal for gasless Mini Apps (Base & Farcaster)</div>
+    </div>
+
+    <div class="header-right" role="region" aria-label="Header stats and actions">
+      <div class="stat-pill" id="ecosystemStat">1000+ Mini Apps live on Base/Farcaster</div>
+      <div style="display:flex;gap:0.5rem;align-items:center;">
+        <div style="text-align:right">
+          <div style="font-size:0.78rem;color:var(--muted)">Streak</div>
+          <div id="streakCounter" style="font-weight:900;color:var(--neon-green);font-size:1.05rem">0 🔥</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main role="main">
+    <div class="top-row">
+      <input id="matrixSearch" placeholder="🔍 Search Matrix (game, defi, tip, gasless, paymaster...)" aria-label="Search Matrix" />
+      <div class="top-actions" style="margin-left:auto;">
+        <a id="submitApp" href="https://github.com/No-Gas-Labs-Official/no-gas-matrix/issues/new?template=add-app.md" target="_blank" rel="noopener noreferrer" title="Submit an app via GitHub Issue">Submit App</a>
+        <button id="openAll" title="Open all web apps">Open All</button>
+        <button id="copyCommands" title="Copy warpcast commands">Copy Commands</button>
+      </div>
+    </div>
+
+    <section aria-labelledby="trendingHeading">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <h2 id="trendingHeading">Trending This Week</h2>
+        <div style="color:var(--muted);font-weight:700;font-size:0.85rem">Top movers (gasless & viral)</div>
+      </div>
+      <div class="trending" id="trendingList" role="list">
+        <!-- Hardcoded top trending (updateable via PR) -->
+        <div class="trend-card"><div class="rank">#1</div><div style="font-weight:900;color:var(--neon-green)">FarHero</div><div style="color:var(--muted)">3D trading cards — markets & battles</div></div>
+        <div class="trend-card"><div class="rank">#2</div><div style="font-weight:900;color:var(--neon-green)">Clanker</div><div style="color:var(--muted)">Token launcher & ritual drops</div></div>
+        <div class="trend-card"><div class="rank">#3</div><div style="font-weight:900;color:var(--neon-green)">Tipn</div><div style="color:var(--muted)">Fast tipping (onchain & fiat bridges)</div></div>
+        <div class="trend-card"><div class="rank">#4</div><div style="font-weight:900;color:var(--neon-green)">Flappycaster</div><div style="color:var(--muted)">Viral in-feed game loop</div></div>
+        <div class="trend-card"><div class="rank">#5</div><div style="font-weight:900;color:var(--neon-green)">Farworld</div><div style="color:var(--muted)">Onchain monsters & collectables</div></div>
+      </div>
+    </section>
+
+    <!-- SocialFi & Creator Economy -->
+    <section aria-labelledby="socialHeading">
+      <h2 id="socialHeading">SocialFi & Creator Economy</h2>
+      <ul class="grid" id="socialGrid" role="list">
+        <!-- items: name, url, short desc, tags -->
+        <li class="card" data-app="Pods" data-tags="onchain,creator,article">
+          <div class="app-name">Pods — Onchain Podcasts</div>
+          <div class="app-desc">Creator-first audio publishing with collectible episodes and tips.</div>
+          <div class="tags"><div class="tag">onchain</div><div class="tag">creator</div><div class="tag">tip</div></div>
+          <div class="controls"><a href="https://pods.media" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Pods">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Paragraph" data-tags="onchain,writer,collectible">
+          <div class="app-name">Paragraph — Onchain Writing</div>
+          <div class="app-desc">Longform essays & collectible passages. Monetize and mint sections.</div>
+          <div class="tags"><div class="tag">onchain</div><div class="tag">writer</div><div class="tag">nft</div></div>
+          <div class="controls"><a href="https://paragraph.xyz" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Paragraph">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Drakula" data-tags="tip,social,gasless">
+          <div class="app-name">Drakula</div>
+          <div class="app-desc">Fast creator tipping & micro-payments with nice UX.</div>
+          <div class="tags"><div class="tag">tip</div><div class="tag">gasless</div><div class="tag">paymaster</div></div>
+          <div class="controls"><a href="https://drakula.app" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Drakula">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Bountycaster" data-tags="bounty,creator,task">
+          <div class="app-name">Bountycaster</div>
+          <div class="app-desc">Task bounties and creator gigs for the Farcaster community.</div>
+          <div class="tags"><div class="tag">bounty</div><div class="tag">creator</div></div>
+          <div class="controls"><a href="https://bountycaster.xyz" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Bountycaster">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Noice" data-tags="social,tip">
+          <div class="app-name">Noice</div>
+          <div class="app-desc">Tipping-first social feed with creator revenue primitives.</div>
+          <div class="tags"><div class="tag">tip</div><div class="tag">social</div></div>
+          <div class="controls"><a href="https://noice.example" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Noice">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Tipping (Tipn)" data-tags="tip,fast,fiat-bridge">
+          <div class="app-name">Tipn</div>
+          <div class="app-desc">Micro-tips infeed; fiat bridges and native paymaster routing.</div>
+          <div class="tags"><div class="tag">tip</div><div class="tag">paymaster</div></div>
+          <div class="controls"><a href="https://tipn.example" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Tipn">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Bountycaster" data-tags="bounty,creator">
+          <div class="app-name">Streamm.tv</div>
+          <div class="app-desc">Creator streaming with onchain tipping layers.</div>
+          <div class="tags"><div class="tag">stream</div><div class="tag">tip</div></div>
+          <div class="controls"><a href="https://streamm.tv" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Streamm.tv">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Amps" data-tags="creator,collectible">
+          <div class="app-name">Amps</div>
+          <div class="app-desc">Creator monetization and ticketed experiences as tokens.</div>
+          <div class="tags"><div class="tag">creator</div><div class="tag">nft</div></div>
+          <div class="controls"><a href="https://amps.xyz" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Amps">Mark Visited</button></div>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- Gaming & Entertainment -->
+    <section aria-labelledby="gamesHeading">
+      <h2 id="gamesHeading">Gaming & Entertainment</h2>
+      <ul class="grid" id="gamesGrid" role="list">
+        <li class="card" data-app="Flappycaster" data-tags="game,viral,gasless">
+          <div class="app-name">Flappycaster</div>
+          <div class="app-desc">In-feed endless runner with daily leaderboards & rewards.</div>
+          <div class="tags"><div class="tag">game</div><div class="tag">viral</div><div class="tag">leaderboard</div></div>
+          <div class="controls"><a href="https://flappycaster.example" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Flappycaster">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="FarHero" data-tags="game,nft,3d">
+          <div class="app-name">FarHero</div>
+          <div class="app-desc">3D trading card battles with persistent upgrades and markets.</div>
+          <div class="tags"><div class="tag">3d</div><div class="tag">nft</div><div class="tag">battle</div></div>
+          <div class="controls"><a href="https://farhero.xyz" target="_blank" rel="noopener noreferrer">Open</a><button data-app="FarHero">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Farworld" data-tags="game,monster,collectible">
+          <div class="app-name">Farworld</div>
+          <div class="app-desc">Onchain monsters to collect, evolve and battle infeed.</div>
+          <div class="tags"><div class="tag">collectible</div><div class="tag">onchain</div></div>
+          <div class="controls"><a href="https://farworld.gg" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Farworld">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Clankermon" data-tags="game,collectible,nft">
+          <div class="app-name">Clankermon</div>
+          <div class="app-desc">AI-driven onchain pets & tournaments — ritual mint moments.</div>
+          <div class="tags"><div class="tag">nft</div><div class="tag">tournament</div></div>
+          <div class="controls"><a href="https://clankermon.com" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Clankermon">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Farcade" data-tags="arcade,game,viral">
+          <div class="app-name">Farcade</div>
+          <div class="app-desc">Mini gaming hub for viral infeed play & cheap minting rewards.</div>
+          <div class="tags"><div class="tag">arcade</div><div class="tag">viral</div></div>
+          <div class="controls"><a href="https://farcade.ai" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Farcade">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Warpslot" data-tags="game,slot,loot">
+          <div class="app-name">Warpslot</div>
+          <div class="app-desc">Daily slot mechanics with tokenized prizes and play-to-earn hooks.</div>
+          <div class="tags"><div class="tag">loot</div><div class="tag">play-to-earn</div></div>
+          <div class="controls"><a href="https://warpslot.xyz" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Warpslot">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Farville" data-tags="game,farming,onchain">
+          <div class="app-name">Farville</div>
+          <div class="app-desc">Farming & crafting infeed — persistent base world play.</div>
+          <div class="tags"><div class="tag">farming</div><div class="tag">persistent</div></div>
+          <div class="controls"><a href="https://farville.xyz" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Farville">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="FarGuesser" data-tags="game,viral,trivia">
+          <div class="app-name">FarGuesser</div>
+          <div class="app-desc">Geography & trivia microgames for quick play & rewards.</div>
+          <div class="tags"><div class="tag">trivia</div><div class="tag">viral</div></div>
+          <div class="controls"><a href="https://farguesser.xyz" target="_blank" rel="noopener noreferrer">Open</a><button data-app="FarGuesser">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Arrows" data-tags="game,skill,leaderboard">
+          <div class="app-name">Arrows</div>
+          <div class="app-desc">Skill-based infeed archery game with competitive rewards.</div>
+          <div class="tags"><div class="tag">skill</div><div class="tag">leaderboard</div></div>
+          <div class="controls"><a href="https://arrows.game" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Arrows">Mark Visited</button></div>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- DeFi & Trading -->
+    <section aria-labelledby="defiHeading">
+      <h2 id="defiHeading">DeFi & Trading</h2>
+      <ul class="grid" id="defiGrid" role="list">
+
+        <li class="card" data-app="Morpho" data-tags="defi,lending,morpho">
+          <div class="app-name">Morpho (deposits)</div>
+          <div class="app-desc">Optimized peer-to-peer lending with gasless interactions.</div>
+          <div class="tags"><div class="tag">defi</div><div class="tag">lending</div></div>
+          <div class="controls"><a href="https://morpho.org" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Morpho">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Avantis" data-tags="defi,market,launchpad">
+          <div class="app-name">Avantis</div>
+          <div class="app-desc">Onchain market primitives & tokenized structured products.</div>
+          <div class="tags"><div class="tag">defi</div><div class="tag">market</div></div>
+          <div class="controls"><a href="https://avantis.example" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Avantis">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Moonwell" data-tags="defi,credit,borrow">
+          <div class="app-name">Moonwell</div>
+          <div class="app-desc">Composable lending and borrowing with onchain credit primitives.</div>
+          <div class="tags"><div class="tag">defi</div><div class="tag">borrow</div></div>
+          <div class="controls"><a href="https://moonwell.fi" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Moonwell">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Bankrbot" data-tags="bot,defi,utility">
+          <div class="app-name">Bankrbot</div>
+          <div class="app-desc">Automated strategies & onchain helpers for DeFi positions.</div>
+          <div class="tags"><div class="tag">bot</div><div class="tag">defi</div></div>
+          <div class="controls"><a href="https://bankrbot.xyz" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Bankrbot">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Uniswap CCA" data-tags="dex,swap,defi">
+          <div class="app-name">Uniswap CCA</div>
+          <div class="app-desc">Composable Uniswap components embedded as mini-app flows.</div>
+          <div class="tags"><div class="tag">swap</div><div class="tag">dex</div></div>
+          <div class="controls"><a href="https://uniswap.org" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Uniswap CCA">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Speedball" data-tags="trading,market,game">
+          <div class="app-name">Speedball</div>
+          <div class="app-desc">Competitive trading games & micro-auctions for fun liquidity events.</div>
+          <div class="tags"><div class="tag">trading</div><div class="tag">game</div></div>
+          <div class="controls"><a href="https://speedball.gg" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Speedball">Mark Visited</button></div>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- Utilities & Tools -->
+    <section aria-labelledby="utilsHeading">
+      <h2 id="utilsHeading">Utilities & Tools</h2>
+      <ul class="grid" id="utilsGrid" role="list">
+
+        <li class="card" data-app="Clanker" data-tags="launchpad,token,gasless">
+          <div class="app-name">Clanker</div>
+          <div class="app-desc">Token launcher & community-driven drops for Base mini-apps.</div>
+          <div class="tags"><div class="tag">launchpad</div><div class="tag">token</div></div>
+          <div class="controls"><a href="https://clanker.io" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Clanker">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Arrows" data-tags="tool,game,ux">
+          <div class="app-name">Higher (Arrows)</div>
+          <div class="app-desc">UX tooling and microgames for building gamified feeds.</div>
+          <div class="tags"><div class="tag">tool</div><div class="tag">game</div></div>
+          <div class="controls"><a href="https://arrows.example" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Arrows">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Blackbird" data-tags="market,tool">
+          <div class="app-name">Blackbird</div>
+          <div class="app-desc">Trading & marketplace utilities with native mini-app hooks.</div>
+          <div class="tags"><div class="tag">market</div><div class="tag">tool</div></div>
+          <div class="controls"><a href="https://blackbird.xyz" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Blackbird">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="SpeedyPay" data-tags="wallet,paymaster,gasless">
+          <div class="app-name">SpeedyPay (example)</div>
+          <div class="app-desc">Paymaster-based relays & gasless micro-transactions toolkit.</div>
+          <div class="tags"><div class="tag">paymaster</div><div class="tag">wallet</div></div>
+          <div class="controls"><a href="https://speedypay.example" target="_blank" rel="noopener noreferrer">Open</a><button data-app="SpeedyPay">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Terminal.co" data-tags="tool,dev,analytics">
+          <div class="app-name">Terminal.co</div>
+          <div class="app-desc">Developer utilities, dashboards, and analytics for Mini Apps.</div>
+          <div class="tags"><div class="tag">dev</div><div class="tag">analytics</div></div>
+          <div class="controls"><a href="https://terminal.co" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Terminal.co">Mark Visited</button></div>
+        </li>
+
+        <li class="card" data-app="Mint.Club" data-tags="mint,nft,tool">
+          <div class="app-name">Mint.Club</div>
+          <div class="app-desc">Quick mint & collectible tooling for creators & games.</div>
+          <div class="tags"><div class="tag">mint</div><div class="tag">nft</div></div>
+          <div class="controls"><a href="https://mint.club" target="_blank" rel="noopener noreferrer">Open</a><button data-app="Mint.Club">Mark Visited</button></div>
+        </li>
+
+      </ul>
+    </section>
+
+    <footer>
+      <div style="margin-bottom:8px;">Stay neon. Submit apps via the <a href="https://github.com/No-Gas-Labs-Official/no-gas-matrix/issues/new?template=add-app.md" target="_blank" rel="noopener noreferrer" style="color:var(--neon-green);font-weight:800">GitHub Issue Template</a>.</div>
+      <div>© No_Gas_Labs™ — 2026 Scout Edition — Built for gasless discovery</div>
+    </footer>
+  </main>
+
+  <!-- neon pulse overlay element -->
+  <div id="neonPulseEl" class="neon-pulse" aria-hidden="true"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@farcaster/frame-sdk/dist/index.min.js" defer></script>
+
+  <script>
+    (function(){
+      // -- Utilities & state
+      const todayKey = new Date().toISOString().split('T')[0];
+      const visitedKey = 'ngl_visited_' + todayKey;
+      const streakKey = 'ngl_streak';
+      const lastVisitKey = 'ngl_last_visit';
+      const neonEl = document.getElementById('neonPulseEl');
+
+      // Ensure per-day visited set exists
+      if(!localStorage.getItem(visitedKey)) localStorage.setItem(visitedKey, JSON.stringify({}));
+
+      // Load progress & streak
+      function loadProgress(){
+        const visited = JSON.parse(localStorage.getItem(visitedKey) || '{}');
+        document.querySelectorAll('button[data-app]').forEach(btn => {
+          if(visited[btn.dataset.app]) btn.classList.add('visited');
+        });
+      }
+
+      // update streak counter (multi-day)
+      function updateStreakUI(){
+        const streak = parseInt(localStorage.getItem(streakKey) || '0', 10);
+        document.getElementById('streakCounter').innerText = (streak || 0) + ' 🔥';
+      }
+
+      // Called when an app is marked visited
+      function markVisited(appName){
+        try{
+          const visited = JSON.parse(localStorage.getItem(visitedKey) || '{}');
+          visited[appName] = new Date().toISOString();
+          localStorage.setItem(visitedKey, JSON.stringify(visited));
+          // streak logic: increment only once per day
+          const lastVisit = localStorage.getItem(lastVisitKey);
+          const yesterday = new Date(Date.now() - 24*60*60*1000).toISOString().split('T')[0];
+          const today = todayKey;
+          if(lastVisit !== today){
+            // if lastVisit was yesterday then increment, else set to 1
+            if(lastVisit === yesterday){
+              const s = parseInt(localStorage.getItem(streakKey) || '0', 10);
+              localStorage.setItem(streakKey, String(s + 1));
+            } else {
+              localStorage.setItem(streakKey, '1');
+            }
+            localStorage.setItem(lastVisitKey, today);
+          }
+          updateStreakUI();
+        }catch(e){}
+      }
+
+      // Frame-aware opener
+      async function openLink(url){
+        try{
+          if(window.frame && window.frame.sdk && window.frame.sdk.actions){
+            const act = window.frame.sdk.actions;
+            if(typeof act.open === 'function'){ await act.open({ url }); return; }
+            if(typeof act.openUrl === 'function'){ await act.openUrl({ url }); return; }
+          }
+        }catch(e){}
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
+
+      // Neon pulse ritual (visual + tiny audio)
+      function triggerNeonPulse(appName){
+        try{ console.log(`%c ⚡️ RITUAL RECOGNIZED: ${appName} has been absorbed into the Matrix.`, "color: #00ff99; font-weight:700; text-shadow:0 0 8px rgba(0,255,153,0.45)"); }catch(e){}
+        try{
+          neonEl.style.opacity = '1';
+          setTimeout(()=> { neonEl.style.opacity = '0'; }, 420);
+        }catch(e){}
+        try{
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if(AudioCtx){
+            const ctx = new AudioCtx();
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.type = 'sine';
+            o.frequency.value = 880;
+            g.gain.value = 0.006;
+            o.connect(g); g.connect(ctx.destination);
+            o.start();
+            setTimeout(()=>{ try{ o.stop(); }catch(_){} try{ ctx.close(); }catch(_){} }, 80);
+          }
+        }catch(e){}
+      }
+
+      // Add per-link copy buttons programmatically and ensure safe attributes
+      document.querySelectorAll('a[href^="http"]').forEach(link => {
+        link.setAttribute('rel','noopener noreferrer');
+        link.setAttribute('target','_blank');
+        const parent = link.parentElement;
+        if(parent){
+          const copyBtn = document.createElement('button');
+          copyBtn.type = 'button';
+          copyBtn.className = 'ghost copy-link';
+          copyBtn.style = "margin-left:6px;padding:6px 8px;border-radius:8px;font-weight:800;color:var(--neon-green);background:transparent;border:1px solid rgba(255,255,255,0.02)";
+          copyBtn.innerText = 'Copy Link';
+          copyBtn.addEventListener('click', (e) => {
+            navigator.clipboard.writeText(link.href).then(()=> {
+              showFeedback('Link copied!');
+            }).catch(()=> showFeedback('Copy failed'));
+            e.stopPropagation();
+          });
+          parent.appendChild(copyBtn);
+        }
+      });
+
+      // Feedback element for clipboard actions
+      const feedbackEl = document.createElement('div');
+      feedbackEl.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--neon-green);color:#001;padding:12px 18px;border-radius:12px;font-weight:900;display:none;z-index:99999';
+      feedbackEl.id = 'copyFeedback';
+      document.body.appendChild(feedbackEl);
+      function showFeedback(text){
+        feedbackEl.innerText = text;
+        feedbackEl.style.display = 'block';
+        setTimeout(()=> feedbackEl.style.display = 'none', 1400);
+      }
+
+      // Mark visited click handlers
+      function bindMarkButtons(){
+        document.querySelectorAll('button[data-app]').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const app = btn.dataset.app;
+            // local progress
+            const visited = JSON.parse(localStorage.getItem(visitedKey) || '{}');
+            visited[app] = new Date().toISOString();
+            localStorage.setItem(visitedKey, JSON.stringify(visited));
+            btn.classList.add('visited');
+            markVisited(app);
+            triggerNeonPulse(app);
+          });
+        });
+      }
+
+      // Copy commands (Warpcast) button
+      const commandList = ['/frenmint','/spotlight','/base','/frames','/degen','/builder'];
+      const copyCommandsBtn = document.getElementById('copyCommands');
+      if(copyCommandsBtn){
+        copyCommandsBtn.addEventListener('click', () => {
+          navigator.clipboard.writeText(commandList.join('\\n')).then(()=> showFeedback('Commands copied!')).catch(()=> showFeedback('Copy failed'));
+        });
+      }
+
+      // Open all (careful with popup blockers)
+      document.getElementById('openAll').addEventListener('click', async () => {
+        const allLinks = Array.from(document.querySelectorAll('a[href^="http"]'));
+        for(const l of allLinks){
+          openLink(l.href);
+          // mark associated app visited (if any)
+          const p = l.closest('.card');
+          if(p){
+            const btn = p.querySelector('button[data-app]');
+            if(btn){
+              btn.classList.add('visited');
+              try{ markVisited(btn.dataset.app); triggerNeonPulse(btn.dataset.app); }catch(e){}
+            }
+          }
+          await new Promise(r => setTimeout(r, 120));
+        }
+      });
+
+      // Search/filter
+      document.getElementById('matrixSearch').addEventListener('input', (e) => {
+        const q = (e.target.value || '').toLowerCase().trim();
+        let visible = 0;
+        document.querySelectorAll('.card').forEach(card => {
+          const text = card.innerText.toLowerCase();
+          const tags = (card.dataset.tags || '').toLowerCase();
+          const ok = !q || text.includes(q) || tags.includes(q);
+          card.style.display = ok ? '' : 'none';
+          if(ok) visible++;
+        });
+        document.getElementById('noResults').style.display = (visible === 0 && q) ? 'block' : 'none';
+      });
+
+      // Initial load
+      loadProgress();
+      bindMarkButtons();
+      updateStreakUI();
+
+      // Frame SDK ready (best-effort)
+      (async function tryFrameReady(){
+        try{ if(window.frame && window.frame.sdk && window.frame.sdk.actions && typeof window.frame.sdk.actions.ready === 'function') await window.frame.sdk.actions.ready(); }catch(e){}
+      })();
+
+      // Register a minimal service worker via blob (single-file friendly)
+      (function registerInlineSW(){
+        if('serviceWorker' in navigator){
+          const swCode = `
+            const CACHE = 'no-gas-matrix-v1';
+            self.addEventListener('install', e => {
+              self.skipWaiting();
+            });
+            self.addEventListener('activate', e => {
+              self.clients.claim();
+            });
+            self.addEventListener('fetch', e => {
+              // fallback to network, simple offline for index
+              e.respondWith(fetch(e.request).catch(()=> caches.match('/index.html')));
+            });
+          `;
+          try{
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            const url = URL.createObjectURL(blob);
+            navigator.serviceWorker.register(url).catch(()=>{/*fail silently*/});
+          }catch(e){}
+        }
+      })();
+
+      // Tri-resonant console Easter Egg (friendly)
+      (function consoleEasterEgg(){
+        const art = [
+"███╗   ██╗ ██████╗      ██████╗ ███████╗",
+"████╗  ██║██╔════╝     ██╔══██╗██╔════╝",
+"██╔██╗ ██║██║  ███╗    ███████║███████╗",
+"██║╚██╗██║██║   ██║    ██╔══██║╚════██║",
+"██║ ╚████║╚██████╔╝    ██║  ██║███████║",
+"╚═╝  ╚═══╝ ╚═════╝     ╚═╝  ╚═╝╚══════╝"
+        ].join('\\n');
+        let shown = false;
+        setInterval(()=>{
+          try{
+            if(window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200){
+              if(!shown){
+                shown = true;
+                console.clear();
+                console.log('%c' + art, 'color: #00ff99; font-weight:900; font-size:12px; text-shadow:0 0 8px rgba(0,255,153,0.45)');
+                console.log('%cNO_GAS_LABS™ Matrix — 2026 Scout Edition — Stay neon, stay neophyte.', 'color:#ff66ff; font-style:italic; font-weight:800');
+              }
+            } else { shown = false; }
+          }catch(e){}
+        }, 1200);
+      })();
+
+    })();
+  </script>
+</body>
+</html>

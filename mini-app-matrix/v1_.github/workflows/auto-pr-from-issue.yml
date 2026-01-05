@@ -1,0 +1,48 @@
+name: Auto PR from issue
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  append-app:
+    if: github.event.label.name == 'add-to-apps'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Extract JSON from issue body
+        id: extract
+        run: |
+          BODY="${{ toJson(github.event.issue.body) }}"
+          # Extract first ```json block
+          APP_JSON=$(echo "${{ github.event.issue.body }}" | sed -n '/```json/,/```/p' | sed '1d;$d' )
+          echo "::set-output name=app::$APP_JSON"
+      - name: Create branch and append
+        run: |
+          BR="add-app-${{ github.event.issue.number }}-$(date +%s)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BR"
+          python3 - <<PY
+import json,sys
+app_str = """${{ steps.extract.outputs.app }}"""
+app = json.loads(app_str)
+with open('apps.json','r+',encoding='utf8') as f:
+    data = json.load(f)
+    data.append(app)
+    f.seek(0); json.dump(data,f,indent=2); f.truncate()
+print("App appended")
+PY
+          git add apps.json
+          git commit -m "chore: add app from issue #${{ github.event.issue.number }}"
+          git push -u origin "$BR"
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: add app (from issue #${{ github.event.issue.number }})"
+          branch: $BR
+          title: "Add app from issue #${{ github.event.issue.number }}"
+          body: |
+            This PR adds the app submitted in issue #${{ github.event.issue.number }}. Please review.

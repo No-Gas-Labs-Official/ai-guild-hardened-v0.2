@@ -1,0 +1,12 @@
+{
+  "name": "No_Gas_Labs™ Mini-App Matrix",
+  "description": "A curated matrix of Farcaster mini-apps and Base frames (2025 edition).",
+  "url": "https://matrix.nogaslabs.com",
+  "icons": [
+    {
+      "src": "https://matrix.nogaslabs.com/matrix-preview.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

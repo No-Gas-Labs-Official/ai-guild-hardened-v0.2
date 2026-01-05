@@ -1,0 +1,18 @@
+{
+  "name": "flashware-monorepo",
+  "version": "1.0.0",
+  "description": "No-code Sui flash loan builder",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev:all": "concurrently &quot;npm run dev --workspace=frontend&quot; &quot;npm run dev --workspace=backend&quot;",
+    "build": "npm run build --workspace=frontend && npm run build --workspace=backend",
+    "deploy:all": "./scripts/deploy-all.sh"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

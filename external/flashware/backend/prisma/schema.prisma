@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Deployment {
+  id              String   @id @default(cuid())
+  packageId       String   @unique
+  moveCode        String
+  nodes           Json
+  edges           Json
+  walletAddress   String
+  status          DeploymentStatus @default(DEPLOYED)
+  gasUsed         BigInt?
+  transactionHash String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  executions Execution[]
+
+  @@map("deployments")
+}
+
+model Execution {
+  id              String   @id @default(cuid())
+  deploymentId    String
+  walletAddress   String
+  status          ExecutionStatus @default(PENDING)
+  transactionBytes String?
+  transactionHash String?
+  gasUsed         BigInt?
+  gasBudget       BigInt?
+  profitLoss      BigInt?
+  events          Json?
+  error           String?
+  createdAt       DateTime @default(now())
+  completedAt     DateTime?
+  updatedAt       DateTime @updatedAt
+
+  deployment Deployment @relation(fields: [deploymentId], references: [id], onDelete: Cascade)
+
+  @@map("executions")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  walletAddress String   @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  deployments Deployment[]
+
+  @@map("users")
+}
+
+model MonitoringSession {
+  id          String   @id @default(cuid())
+  sessionId   String   @unique
+  walletAddress String
+  status      SessionStatus @default(ACTIVE)
+  lastActivity DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("monitoring_sessions")
+}
+
+enum DeploymentStatus {
+  DEPLOYED
+  FAILED
+  PENDING
+}
+
+enum ExecutionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  CANCELLED
+}
+
+enum SessionStatus {
+  ACTIVE
+  COMPLETED
+  TIMEOUT
+  ERROR
+}
