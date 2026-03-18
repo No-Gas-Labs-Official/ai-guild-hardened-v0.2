@@ -76,7 +76,7 @@ const initDatabase = async () => {
         repo_id INTEGER REFERENCES repositories(id) ON DELETE CASCADE,
         name VARCHAR(255) NOT NULL,
         version VARCHAR(100),
-        type VARCHAR(50), // 'dev', 'peer', 'runtime'
+        type VARCHAR(50), -- 'dev', 'peer', 'runtime'
         is_outdated BOOLEAN DEFAULT false,
         latest_version VARCHAR(100),
         security_vulnerability BOOLEAN DEFAULT false,
