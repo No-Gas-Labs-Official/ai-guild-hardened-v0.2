@@ -1,286 +1,71 @@
-# No-Gas-Labs™ Mobile-Optimized Operations Intelligence System
+# No Gas Labs AI Guild Platform
 
-A comprehensive, mobile-first operations intelligence platform for managing GitHub repositories, AI agents, and development workflows.
+> **A rollback-first, fail-closed read-only platform baseline.**
 
-## 🚀 Features
+## Current status
 
-### 🔧 Core Modules
-- **Repository Analysis Engine**: Automated GitHub repository scanning and analysis
-- **Architecture Mapper**: Pattern detection and visualization generation
-- **Autonomous Repo Maintainer**: Automated PR generation and maintenance
-- **Internal Model Registry**: Prompt and role management system
-- **Autonomous Prototype Generator**: Code scaffolding and project generation
-- **Unified Mobile Dashboard**: Interactive visualizations and monitoring
-- **Multi-Agent Operations Director**: Task orchestration and coordination
-- **Mobile CLI Tool**: Command-line interface for mobile devices
+This repository contains an Express backend, an incomplete frontend/mobile surface, data-client code, and multiple prototype/demo route modules. The `manus/ai-platform-production-readiness-20260827` branch makes the active backend **safe to start only as a read-only platform boundary**. It does not make repository scanning, autonomous maintenance, agent execution, prototype generation, notifications, deployments, data mutation, wallet operations, or external AI/tool use operational.
 
-### 📱 Mobile-Optimized Features
-- Responsive design for all screen sizes
-- Touch-optimized interfaces
-- Pull-to-refresh functionality
-- Offline capability
-- Push notifications
-- Safe area support for modern devices
-- High performance on mobile networks
+| Area | Current production-baseline contract |
+| --- | --- |
+| Server startup | Production configuration fails closed without a strong JWT secret, explicit CORS origins, database/Redis connection settings, and read-only mode. |
+| Public routes | Only `/health` and `/ready` are public. `/ready` returns non-secret configuration status. |
+| Operational API | All `/api/*` paths are disabled with a safe `503 read_only_baseline` response. |
+| Identity routes | Registration, login, identity lookup, and refresh are unavailable while the baseline is read-only. A fallback JWT secret is removed. |
+| Uploads | The legacy public `/uploads` static mount is disabled. Public uploads cannot be enabled in this production baseline. |
+| Data clients | PostgreSQL and Redis clients are configured without connection on module import. Automatic schema initialization is disabled. |
+| Mock/demo modules | Demo routes are not mounted by the active server and are not production capabilities. |
+| External actions | No repository, deployment, provider, wallet, database, notification, or AI action is automatically enabled. |
 
-### 🛠️ Technical Stack
-- **Backend**: Node.js, Express, PostgreSQL, Redis
-- **Frontend**: React, Vite, Tailwind CSS
-- **Mobile**: Capacitor, Android/iOS native
-- **Authentication**: JWT with role-based access
-- **API**: RESTful with OpenAPI documentation
-- **Real-time**: WebSocket connections for live updates
+## Safe local validation
 
-## 🏗️ Architecture
+The backend validation suite exercises configuration and the read-only HTTP boundary without connecting to PostgreSQL, Redis, GitHub, AI providers, or any other external system.
 
-```
-no-gas-labs-ops/
-├── backend/                 # Node.js API server
-│   ├── config/             # Database and configuration
-│   ├── routes/             # API endpoints for all modules
-│   ├── server.js           # Main server file
-│   └── start.js            # Startup script
-├── frontend/               # React mobile app
-│   ├── src/
-│   │   ├── components/     # React components
-│   │   ├── services/       # API and auth services
-│   │   └── styles/         # Mobile-first CSS
-│   ├── dist/               # Built web assets
-│   └── android/            # Android native project
-├── docs/                   # Documentation
-├── scripts/               # Build and deployment scripts
-└── database/              # Database schemas and migrations
-```
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 18+
-- PostgreSQL 15+
-- Redis 6+
-- Android Studio (for mobile development)
-
-### 1. Backend Setup
-
-```bash
-# Navigate to backend directory
-cd backend
-
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your configuration
-
-# Initialize database
-node start.js
-```
-
-### 2. Frontend Setup
-
-```bash
-# Navigate to frontend directory
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-```
-
-### 3. Mobile App Development
-
-```bash
-# Build and sync mobile app
-npm run build
-npm run sync
-
-# Open in Android Studio
-npm run android
-
-# Or build APK directly
-npm run build:android
-```
-
-## 📱 Mobile App Features
-
-### Repository Management
-- Add and monitor GitHub repositories
-- Real-time dependency scanning
-- Security vulnerability detection
-- Automated maintenance tasks
-
-### AI Agent Coordination
-- Monitor agent performance and health
-- Start/stop agents on demand
-- View task execution history
-- Coordinate multi-agent workflows
-
-### Prototype Generation
-- Generate code scaffolding from descriptions
-- Automatic test generation
-- One-click deployment to staging
-- Version management and rollbacks
-
-### CLI Interface
-- Mobile-optimized command execution
-- Command history and favorites
-- Real-time output streaming
-- Plugin system support
-
-## 🔌 API Documentation
-
-### Authentication
-```bash
-# Login
-POST /api/auth/login
-{
-  "username": "admin",
-  "password": "admin123"
-}
-```
-
-### Repository Management
-```bash
-# Add repository
-POST /api/repos/add
-{
-  "url": "https://github.com/user/repo"
-}
-
-# Scan repository
-POST /api/repos/:id/scan
-```
-
-### Agent Management
-```bash
-# Get all agents
-GET /api/agents
-
-# Start agent
-POST /api/agents/:id/start
-```
-
-### CLI Commands
-```bash
-# Execute CLI command
-POST /api/cli/execute
-{
-  "command": "scan",
-  "args": ["--repo-url=https://github.com/user/repo"]
-}
-```
-
-## 🧪 Testing
-
-### Backend Tests
 ```bash
 cd backend
+npm ci --ignore-scripts --no-audit --no-fund
+npm run check
 npm test
 ```
 
-### Frontend Tests
+A production-shaped preflight needs placeholder values only; it must not use a real secret or endpoint in a local command history:
+
 ```bash
-cd frontend
-npm test
+NODE_ENV=production \
+APP_READ_ONLY=true \
+APP_CORS_ORIGINS='https://console.example.test' \
+JWT_SECRET='non-secret-validation-value-at-least-32-characters' \
+DB_HOST='db.example.test' DB_NAME='guild' DB_USER='guild_user' DB_PASSWORD='non-secret-validation-password' \
+REDIS_HOST='redis.example.test' \
+node -e "require('./runtime-config').loadRuntimeConfig(); console.log('configuration_valid')"
 ```
 
-### Mobile Tests
-```bash
-cd frontend
-npm run test:android
-```
+The service does not run database migrations automatically. The historic database initialization path is deliberately blocked until an approved schema, migration, backup, least-privilege credential, and ownership plan exists.
 
-## 📦 Deployment
+## Configuration
 
-### Backend Deployment
-```bash
-# Production build
-cd backend
-npm run start
+The production contract is intentionally strict.
 
-# With Docker
-docker build -t nogaslabs-ops .
-docker run -p 3000:3000 nogaslabs-ops
-```
+| Variable | Purpose | Production requirement |
+| --- | --- | --- |
+| `NODE_ENV` | Runtime environment. | `production` for a production release. |
+| `APP_READ_ONLY` | Allows only the safe baseline. | Must be `true` on this branch. |
+| `APP_CORS_ORIGINS` | Comma-separated browser origins. | Required; absolute HTTP(S) origins only. |
+| `JWT_SECRET` | Token signing material. | Required, non-placeholder, at least 32 characters, platform-managed only. |
+| `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_PORT` | Future Postgres configuration. | Required in production but no connection/migration is automatically made. |
+| `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD` | Future Redis configuration. | Host required in production; client is lazy and disconnected by default. |
+| `APP_BODY_LIMIT_BYTES` | Maximum parsed body size. | Default 1 MiB; maximum 10 MiB. |
+| `APP_RATE_LIMIT_WINDOW_MS`, `APP_RATE_LIMIT_MAX` | In-process API rate control. | Bounded configuration; not a distributed limiter. |
+| `ENABLE_PUBLIC_UPLOADS` | Historic public file surface. | Must not be `true` on this branch. |
 
-### Mobile App Deployment
-```bash
-# Build release APK
-cd frontend
-npm run build
-npx cap sync android
-cd android
-./gradlew assembleRelease
+Do not rely on the tracked legacy `.env` files for production. They are historical configuration artifacts, are not loaded by the active server, and must be replaced by platform-managed values only after an approved secret lifecycle exists.
 
-# Deploy to Google Play Store
-./gradlew publishRelease
-```
+## Remaining production gates
 
-## 🔧 Configuration
+This branch is **not a deployment**. An authorized owner must still approve the default-branch merge, platform/TLS/network design, secret issuance and rotation, database/Redis provisioning and migration plan, role-based authorization policy, route-by-route action approvals, observability/incident response, upload/media policy, dependency review, and tests against the chosen infrastructure.
 
-### Environment Variables
+The project must not claim actual autonomous agent management, repository mutation, AI inference, model/tool execution, notifications, deployment, mobile distribution, or real-time operations until a separately reviewed implementation and end-to-end evidence exist.
 
-#### Backend
-```env
-PORT=3000
-NODE_ENV=production
-DB_HOST=localhost
-DB_PASSWORD=your_password
-GITHUB_TOKEN=your_github_token
-JWT_SECRET=your_jwt_secret
-```
+## Rollback
 
-#### Mobile
-```env
-VITE_API_URL=https://your-api.com
-VITE_APP_VERSION=1.0.0
-```
-
-## 📊 Monitoring
-
-### System Health
-- Database connection monitoring
-- API response time tracking
-- Agent performance metrics
-- Mobile app analytics
-
-### Alerts
-- Security vulnerability notifications
-- System performance alerts
-- Agent failure notifications
-- Repository maintenance reminders
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-- Documentation: [docs/](docs/)
-- API Reference: `/docs/api`
-- Issue Tracker: GitHub Issues
-- Community: Discord/Slack
-
-## 🏆 Credits
-
-Built by the No-Gas-Labs™ team with ❤️ for the developer community.
-
----
-
-**No-Gas-Labs™ Operations Intelligence System**  
-*Mobile-First DevOps Automation Platform*  
-Version 1.0.0
+No default branch was modified. Before merge, close the review or delete the rollback branch after retaining the change record. After an explicitly approved merge, create a new branch from the then-current default branch and use `git revert <hardening-commit>` for review. Do not restore the fallback JWT secret, re-enable public uploads, or disable read-only mode as a rollback shortcut.

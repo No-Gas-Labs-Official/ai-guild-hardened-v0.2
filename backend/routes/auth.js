@@ -1,158 +1,83 @@
+'use strict';
+
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { pool } = require('../config/database');
+const { loadRuntimeConfig } = require('../runtime-config');
+
 const router = express.Router();
+const JWT_ISSUER = 'no-gas-labs-ai-guild';
+const JWT_AUDIENCE = 'no-gas-labs-ai-guild-api';
 
-// JWT Secret (should be in environment variables)
-const JWT_SECRET = process.env.JWT_SECRET || 'nogaslabs-super-secret-key';
+function getConfig() {
+  return loadRuntimeConfig();
+}
 
-// Middleware to verify JWT token
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+function getBearerToken(headerValue) {
+  if (typeof headerValue !== 'string') return null;
+  const match = /^Bearer\s+([A-Za-z0-9._-]+)$/.exec(headerValue.trim());
+  return match ? match[1] : null;
+}
 
-  if (!token) {
-    return res.status(401).json({ error: 'Access token required' });
+function authenticateToken(req, res, next) {
+  const token = getBearerToken(req.headers.authorization);
+  if (!token) return res.status(401).json({ error: 'access_token_required' });
+  try {
+    const config = getConfig();
+    req.user = jwt.verify(token, config.jwtSecret, {
+      algorithms: ['HS256'],
+      issuer: JWT_ISSUER,
+      audience: JWT_AUDIENCE,
+    });
+    return next();
+  } catch (_) {
+    return res.status(403).json({ error: 'invalid_or_expired_token' });
   }
+}
 
-  jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) {
-      return res.status(403).json({ error: 'Invalid or expired token' });
-    }
-    req.user = user;
-    next();
+function readOnlyUnavailable(_req, res) {
+  return res.status(503).json({
+    error: 'read_only_baseline',
+    message: 'Identity and data mutation endpoints are disabled pending approved database and operations setup.',
   });
-};
+}
 
-// Register new user
-router.post('/register', async (req, res) => {
-  try {
-    const { username, email, password, role = 'user' } = req.body;
+function validateCredentials(username, email, password) {
+  if (typeof username !== 'string' || !/^[A-Za-z0-9_.-]{3,50}$/.test(username)) return false;
+  if (typeof email !== 'string' || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return false;
+  return typeof password === 'string' && password.length >= 12 && password.length <= 256;
+}
 
-    if (!username || !email || !password) {
-      return res.status(400).json({ error: 'Username, email, and password are required' });
-    }
+function signToken(user, config) {
+  return jwt.sign(
+    { userId: user.id, username: user.username, role: user.role },
+    config.jwtSecret,
+    { algorithm: 'HS256', expiresIn: '15m', issuer: JWT_ISSUER, audience: JWT_AUDIENCE }
+  );
+}
 
-    // Check if user already exists
-    const existingUser = await pool.query(
-      'SELECT id FROM users WHERE username = $1 OR email = $2',
-      [username, email]
-    );
+router.post('/register', readOnlyUnavailable);
+router.post('/login', readOnlyUnavailable);
 
-    if (existingUser.rows.length > 0) {
-      return res.status(409).json({ error: 'Username or email already exists' });
-    }
-
-    // Hash password
-    const saltRounds = 12;
-    const passwordHash = await bcrypt.hash(password, saltRounds);
-
-    // Create user
-    const result = await pool.query(
-      'INSERT INTO users (username, email, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING id, username, email, role',
-      [username, email, passwordHash, role]
-    );
-
-    const user = result.rows[0];
-
-    // Generate JWT token
-    const token = jwt.sign(
-      { userId: user.id, username: user.username, role: user.role },
-      JWT_SECRET,
-      { expiresIn: '24h' }
-    );
-
-    res.status(201).json({
-      message: 'User registered successfully',
-      user: { id: user.id, username: user.username, email: user.email, role: user.role },
-      token
-    });
-  } catch (error) {
-    console.error('Registration error:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
+router.get('/me', authenticateToken, (req, res) => {
+  if (getConfig().readOnly) return readOnlyUnavailable(req, res);
+  return res.status(501).json({ error: 'identity_backend_not_enabled' });
 });
 
-// Login user
-router.post('/login', async (req, res) => {
-  try {
-    const { username, password } = req.body;
-
-    if (!username || !password) {
-      return res.status(400).json({ error: 'Username and password are required' });
-    }
-
-    // Find user
-    const result = await pool.query(
-      'SELECT id, username, email, password_hash, role FROM users WHERE username = $1 OR email = $1',
-      [username]
-    );
-
-    if (result.rows.length === 0) {
-      return res.status(401).json({ error: 'Invalid credentials' });
-    }
-
-    const user = result.rows[0];
-
-    // Verify password
-    const isValidPassword = await bcrypt.compare(password, user.password_hash);
-    if (!isValidPassword) {
-      return res.status(401).json({ error: 'Invalid credentials' });
-    }
-
-    // Generate JWT token
-    const token = jwt.sign(
-      { userId: user.id, username: user.username, role: user.role },
-      JWT_SECRET,
-      { expiresIn: '24h' }
-    );
-
-    res.json({
-      message: 'Login successful',
-      user: { id: user.id, username: user.username, email: user.email, role: user.role },
-      token
-    });
-  } catch (error) {
-    console.error('Login error:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// Get current user info
-router.get('/me', authenticateToken, async (req, res) => {
-  try {
-    const result = await pool.query(
-      'SELECT id, username, email, role, created_at FROM users WHERE id = $1',
-      [req.user.userId]
-    );
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    res.json({ user: result.rows[0] });
-  } catch (error) {
-    console.error('Get user error:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// Refresh token
 router.post('/refresh', authenticateToken, (req, res) => {
+  if (getConfig().readOnly) return readOnlyUnavailable(req, res);
   try {
-    const token = jwt.sign(
-      { userId: req.user.userId, username: req.user.username, role: req.user.role },
-      JWT_SECRET,
-      { expiresIn: '24h' }
-    );
-
-    res.json({ token });
-  } catch (error) {
-    console.error('Token refresh error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.json({ token: signToken(req.user, getConfig()) });
+  } catch (_) {
+    return res.status(500).json({ error: 'token_refresh_failed' });
   }
 });
 
+// Exported for offline unit tests and for future reviewed routes. Registration and
+// login remain deliberately unavailable until a database lifecycle is approved.
 module.exports = router;
 module.exports.authenticateToken = authenticateToken;
+module.exports.validateCredentials = validateCredentials;
+module.exports.getBearerToken = getBearerToken;
+module.exports.signToken = signToken;

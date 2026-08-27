@@ -1,80 +1,150 @@
+'use strict';
+
+const crypto = require('node:crypto');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const morgan = require('morgan');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
-const path = require('path');
-require('dotenv').config();
+const { loadRuntimeConfig, publicRuntimeReport, RuntimeConfigurationError } = require('./runtime-config');
+const authRoutes = require('./routes/auth');
+const { authenticateToken } = require('./routes/auth');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+function requestContext(req, res, next) {
+  const requestId = crypto.randomUUID();
+  req.requestId = requestId;
+  res.setHeader('x-request-id', requestId);
+  next();
+}
 
-// Security middleware
-app.use(helmet());
-app.use(cors());
-app.use(compression());
-
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
-});
-app.use('/api/', limiter);
-
-// Logging
-app.use(morgan('combined'));
-
-// Body parsing middleware
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true }));
-
-// Static file serving
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-    environment: process.env.NODE_ENV || 'development'
+function safeRequestLogger(req, _res, next) {
+  const startedAt = process.hrtime.bigint();
+  _res.on('finish', () => {
+    const durationMs = Number(process.hrtime.bigint() - startedAt) / 1_000_000;
+    console.info(JSON.stringify({
+      event: 'http_request',
+      request_id: req.requestId,
+      method: req.method,
+      path: req.path,
+      status: _res.statusCode,
+      duration_ms: Math.round(durationMs),
+    }));
   });
-});
+  next();
+}
 
-// API Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/repos', require('./routes/repos'));
-app.use('/api/architecture', require('./routes/architecture'));
-app.use('/api/maintainer', require('./routes/maintainer'));
-app.use('/api/registry', require('./routes/registry'));
-app.use('/api/prototypes', require('./routes/prototypes'));
-app.use('/api/dashboard', require('./routes/dashboard'));
-app.use('/api/agents', require('./routes/agents'));
-app.use('/api/cli', require('./routes/cli'));
-app.use('/api/apk', require('./routes/apk-distribution'));
-app.use('/api/notifications', require('./routes/push-notifications'));
-app.use('/api/insights', require('./routes/ai-insights'));
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    error: 'Something went wrong!',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error'
+function readOnlyUnavailable(_req, res) {
+  return res.status(503).json({
+    error: 'read_only_baseline',
+    message: 'Operational API routes are disabled pending explicitly approved infrastructure, data, and security setup.',
   });
-});
+}
 
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
-});
+function createApp({ config = loadRuntimeConfig() } = {}) {
+  const app = express();
+  app.disable('x-powered-by');
+  app.set('trust proxy', false);
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 No-Gas-Labs™ Ops Intelligence Server running on port ${PORT}`);
-  console.log(`📱 Mobile-optimized backend ready`);
-  console.log(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+  app.use(requestContext);
+  app.use(helmet({
+    crossOriginResourcePolicy: { policy: 'same-origin' },
+    referrerPolicy: { policy: 'no-referrer' },
+  }));
+  if (config.corsOrigins.length > 0) {
+    app.use(cors({
+      origin: config.corsOrigins,
+      credentials: false,
+      methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE'],
+      allowedHeaders: ['Authorization', 'Content-Type', 'X-Request-ID'],
+      maxAge: 600,
+    }));
+  }
+  app.use(compression());
+  app.use(safeRequestLogger);
+  app.use(express.json({ limit: config.bodyLimitBytes, type: ['application/json', 'application/*+json'] }));
+  app.use(express.urlencoded({ extended: false, limit: config.bodyLimitBytes }));
 
-module.exports = app;
+  const limiter = rateLimit({
+    windowMs: config.rateLimitWindowMs,
+    limit: config.rateLimitMax,
+    standardHeaders: 'draft-8',
+    legacyHeaders: false,
+    message: { error: 'rate_limit_exceeded' },
+  });
+  app.use('/api', limiter);
+
+  app.get('/health', (_req, res) => {
+    res.json({ status: 'ok', service: 'no-gas-labs-ai-guild-platform' });
+  });
+  app.get('/ready', (_req, res) => {
+    res.json(publicRuntimeReport(config));
+  });
+
+  // Identity routes must remain first to return their defined safe unavailable state.
+  app.use('/api/auth', authRoutes);
+
+  if (config.readOnly) {
+    app.use('/api', readOnlyUnavailable);
+  } else {
+    const protectedApi = express.Router();
+    protectedApi.use(authenticateToken);
+    protectedApi.use('/repos', require('./routes/repos'));
+    protectedApi.use('/architecture', require('./routes/architecture'));
+    protectedApi.use('/maintainer', require('./routes/maintainer'));
+    protectedApi.use('/registry', require('./routes/registry'));
+    protectedApi.use('/prototypes', require('./routes/prototypes'));
+    protectedApi.use('/dashboard', require('./routes/dashboard'));
+    protectedApi.use('/agents', require('./routes/agents'));
+    protectedApi.use('/cli', require('./routes/cli'));
+    protectedApi.use('/apk', require('./routes/apk-distribution'));
+    protectedApi.use('/notifications', require('./routes/push-notifications'));
+    protectedApi.use('/insights', require('./routes/ai-insights'));
+    app.use('/api', protectedApi);
+  }
+
+  app.use((err, req, res, _next) => {
+    const status = err instanceof SyntaxError && 'body' in err ? 400 : 500;
+    console.error(JSON.stringify({
+      event: 'request_error',
+      request_id: req.requestId,
+      error_name: err?.name || 'Error',
+      status,
+    }));
+    res.status(status).json({
+      error: status === 400 ? 'invalid_request_body' : 'internal_server_error',
+      request_id: req.requestId,
+    });
+  });
+
+  app.use((req, res) => {
+    res.status(404).json({ error: 'not_found', request_id: req.requestId });
+  });
+
+  return app;
+}
+
+function startServer() {
+  let config;
+  try {
+    config = loadRuntimeConfig();
+  } catch (error) {
+    const message = error instanceof RuntimeConfigurationError ? error.message : 'invalid runtime configuration';
+    console.error(JSON.stringify({ event: 'startup_rejected', service: 'no-gas-labs-ai-guild-platform', reason: message }));
+    process.exitCode = 2;
+    return null;
+  }
+  const app = createApp({ config });
+  const server = app.listen(config.port, () => {
+    console.info(JSON.stringify({
+      event: 'service_started',
+      service: 'no-gas-labs-ai-guild-platform',
+      port: config.port,
+      read_only: config.readOnly,
+    }));
+  });
+  return server;
+}
+
+if (require.main === module) startServer();
+
+module.exports = { createApp, startServer, readOnlyUnavailable, requestContext };
