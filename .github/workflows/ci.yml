@@ -23,6 +23,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
       
       - name: Install dependencies
         run: npm ci || npm install
@@ -31,7 +32,12 @@ jobs:
         run: npm run lint --if-present
       
       - name: Run tests
-        run: npm test --if-present
+        run: |
+          if npm pkg get scripts.test | grep -q "no test specified"; then
+            echo "No project test configured; skipping npm's placeholder test script."
+          else
+            npm test --if-present
+          fi
       
       - name: Build
         run: npm run build --if-present
