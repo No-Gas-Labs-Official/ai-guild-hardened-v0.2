@@ -4,8 +4,22 @@ const jwt = require('jsonwebtoken');
 const { pool } = require('../config/database');
 const router = express.Router();
 
-// JWT Secret (should be in environment variables)
-const JWT_SECRET = process.env.JWT_SECRET || 'nogaslabs-super-secret-key';
+// JWT Secret — must come from the environment. A hardcoded fallback secret lets
+// anyone who reads the source forge valid admin tokens, so refuse to run in
+// production without one. Development falls back to a clearly-labeled secret.
+const JWT_SECRET = process.env.JWT_SECRET ||
+  (process.env.NODE_ENV === 'production' ? null : 'dev-only-insecure-secret');
+
+if (!JWT_SECRET) {
+  throw new Error(
+    'JWT_SECRET must be set when NODE_ENV=production — refusing to start with a guessable secret.'
+  );
+}
+if (!process.env.JWT_SECRET) {
+  console.warn(
+    '⚠️  JWT_SECRET not set — using an INSECURE development-only secret. Never run production like this.'
+  );
+}
 
 // Middleware to verify JWT token
 const authenticateToken = (req, res, next) => {
@@ -28,7 +42,13 @@ const authenticateToken = (req, res, next) => {
 // Register new user
 router.post('/register', async (req, res) => {
   try {
-    const { username, email, password, role = 'user' } = req.body;
+    const { username, email, password } = req.body;
+
+    // SECURITY: `role` is deliberately NOT accepted from the request body.
+    // Accepting it let any caller self-register as 'admin' (privilege
+    // escalation). New users always start as 'user'; elevated roles must be
+    // granted out-of-band by an operator.
+    const role = 'user';
 
     if (!username || !email || !password) {
       return res.status(400).json({ error: 'Username, email, and password are required' });

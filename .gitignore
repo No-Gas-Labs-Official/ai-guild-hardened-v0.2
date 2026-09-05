@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+build/
+coverage/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Runtime artifacts
+uploads/
+memory/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -36,25 +36,25 @@ const QuadrupleExposure = () => {
     const fetchData = async () => {
       try {
         // Continuity: 9-module health
-        const healthRes = await fetch('/api/dashboard/health');
+        const healthRes = await fetch('/api/quadruple/health'); // Continuity: matches routes/quadruple.js GET /health
         if (healthRes.ok) {
           setContinuity(prev => ({ ...prev, ...await healthRes.json() }));
         }
 
         // Leak: Node reasoning logs
-        const leakRes = await fetch('/api/liver/logs');
+        const leakRes = await fetch('/api/quadruple/leak'); // The Leak: matches routes/quadruple.js GET /leak
         if (leakRes.ok) {
           setLeak(await leakRes.json());
         }
 
         // Mutation: Chaos injection state
-        const mutationRes = await fetch('/api/chaos/state');
+        const mutationRes = await fetch('/api/quadruple/chaos'); // Mutation: matches routes/quadruple.js GET /chaos
         if (mutationRes.ok) {
           setMutation(await mutationRes.json());
         }
 
         // Regeneration: Liver status
-        const liverRes = await fetch('/api/liver/status');
+        const liverRes = await fetch('/api/quadruple/regeneration'); // Regeneration: matches routes/quadruple.js GET /regeneration
         if (liverRes.ok) {
           setRegeneration(await liverRes.json());
         }
