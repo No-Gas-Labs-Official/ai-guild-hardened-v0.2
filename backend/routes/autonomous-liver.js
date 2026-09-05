@@ -119,8 +119,10 @@ async function reconstructMemory() {
 // Node 36: Full System Detox
 router.post('/detox', async (req, res) => {
     try {
-        const { basePath } = req.body;
-        const codePath = basePath || path.join(__dirname, '../..');
+        // SECURITY: `basePath` is deliberately NOT accepted from the request
+        // body — that let unauthenticated callers point the file-rewriter at
+        // any directory on disk. Always operate on this server's own tree.
+        const codePath = path.join(__dirname, '../..');
         
         const filesToHeal = await findCodeFiles(codePath);
         let healedCount = 0;
@@ -212,16 +214,21 @@ async function findCodeFiles(dir) {
     return files;
 }
 
-// Auto-regeneration daemon (runs every 5 minutes)
-setInterval(async () => {
+// Auto-regeneration daemon (runs every 5 minutes).
+// DISABLED by default: this daemon silently rewrites source files on disk
+// (mangling console.log/debugger lines and prepending headers), which is
+// destructive on a shared codebase. Opt in with LIVER_DAEMON_ENABLED=true.
+if (process.env.LIVER_DAEMON_ENABLED === 'true') {
+  setInterval(async () => {
     const basePath = path.join(__dirname, '../..');
     const files = await findCodeFiles(basePath);
-    
+
     for (const file of files.slice(0, 10)) { // Limit to 10 per cycle
-        await regenerateFile(file);
+      await regenerateFile(file);
     }
-    
+
     await reconstructMemory();
-}, 5 * 60 * 1000);
+  }, 5 * 60 * 1000);
+}
 
 module.exports = router;
