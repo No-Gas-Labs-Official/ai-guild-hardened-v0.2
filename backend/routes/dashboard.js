@@ -38,27 +38,38 @@ router.get('/overview', authenticateToken, async (req, res) => {
     `);
     
     // Get recent activity
+    // FIX (P0, found during merged-state re-verification): PostgreSQL rejects
+    // a bare `ORDER BY ... LIMIT` directly inside a UNION ALL arm (42601:
+    // "syntax error at or near \"UNION\"" — hit live on 2026-09-05 at
+    // position 269). Each arm is now parenthesized, and the arms are wrapped
+    // in an outer query so the feed is sorted globally by recency.
     const recentActivity = await pool.query(`
-      SELECT 
-        'repository' as type,
-        name as title,
-        'Scanned repository' as description,
-        last_scanned as timestamp
-      FROM repositories
-      WHERE last_scanned IS NOT NULL
-      ORDER BY last_scanned DESC
-      LIMIT 5
-      
-      UNION ALL
-      
-      SELECT 
-        'task' as type,
-        agent_name as title,
-        task_type as description,
-        created_at as timestamp
-      FROM agent_tasks
-      ORDER BY created_at DESC
-      LIMIT 5
+      SELECT * FROM (
+        (
+          SELECT 
+            'repository' as type,
+            name as title,
+            'Scanned repository' as description,
+            last_scanned as timestamp
+          FROM repositories
+          WHERE last_scanned IS NOT NULL
+          ORDER BY last_scanned DESC
+          LIMIT 5
+        )
+        UNION ALL
+        (
+          SELECT 
+            'task' as type,
+            agent_name as title,
+            task_type as description,
+            created_at as timestamp
+          FROM agent_tasks
+          ORDER BY created_at DESC
+          LIMIT 5
+        )
+      ) as recent
+      ORDER BY timestamp DESC
+      LIMIT 10
     `);
     
     // Get system health
