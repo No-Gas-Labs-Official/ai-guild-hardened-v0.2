@@ -18,7 +18,7 @@ app.use(compression());
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  limit: 100 // limit each IP to 100 requests per windowMs ('max' is deprecated in express-rate-limit v7+)
 });
 app.use('/api/', limiter);
 
@@ -56,6 +56,14 @@ app.use('/api/apk', require('./routes/apk-distribution'));
 app.use('/api/notifications', require('./routes/push-notifications'));
 app.use('/api/insights', require('./routes/ai-insights'));
 
+// System routers — previously implemented but never mounted (unreachable dead code).
+// The frontend QuadrupleExposure UI depends on /api/quadruple; liver, ip-moat and
+// rituals expose the autonomous-liver, IP moat and zero-gas ritual subsystems.
+app.use('/api/quadruple', require('./routes/quadruple'));
+app.use('/api/liver', require('./routes/autonomous-liver'));
+app.use('/api/ip-moat', require('./routes/ip-moat'));
+app.use('/api/rituals', require('./routes/zero-gas-rituals').router);
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -66,7 +74,10 @@ app.use((err, req, res, next) => {
 });
 
 // 404 handler
-app.use('*', (req, res) => {
+// NOTE: Express 5 removed support for bare '*' paths — app.use('*') throws
+// "Missing parameter name at index 1: *" at startup. A pathless middleware
+// matches everything that fell through, which is what we want here.
+app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 

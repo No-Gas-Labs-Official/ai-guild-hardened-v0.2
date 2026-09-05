@@ -91,7 +91,7 @@ const initDatabase = async () => {
         pattern_type VARCHAR(100) NOT NULL,
         pattern_name VARCHAR(255) NOT NULL,
         description TEXT,
-        files_affected TEXT[], // array of file paths
+        files_affected TEXT[], -- array of file paths
         confidence_score FLOAT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
@@ -103,7 +103,7 @@ const initDatabase = async () => {
         agent_name VARCHAR(100) NOT NULL,
         task_type VARCHAR(100) NOT NULL,
         task_data JSONB,
-        status VARCHAR(20) DEFAULT 'pending', // 'pending', 'running', 'completed', 'failed'
+        status VARCHAR(20) DEFAULT 'pending', -- 'pending', 'running', 'completed', 'failed'
         result JSONB,
         error_message TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
