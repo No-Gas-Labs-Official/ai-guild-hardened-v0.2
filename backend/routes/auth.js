@@ -5,7 +5,10 @@ const { pool } = require('../config/database');
 const router = express.Router();
 
 // JWT Secret (should be in environment variables)
-const JWT_SECRET = process.env.JWT_SECRET || 'nogaslabs-super-secret-key';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET must be configured before loading authentication routes');
+}
 
 // Middleware to verify JWT token
 const authenticateToken = (req, res, next) => {
