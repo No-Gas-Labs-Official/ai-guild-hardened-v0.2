@@ -1,286 +1,116 @@
-# No-Gas-Labs™ Mobile-Optimized Operations Intelligence System
+# No-Gas-Labs™ Ops Intelligence
 
-A comprehensive, mobile-first operations intelligence platform for managing GitHub repositories, AI agents, and development workflows.
+A mobile-first operations dashboard for GitHub repositories, AI agent tasks, and development workflows. The stack is a Node.js/Express API backed by PostgreSQL and Redis, a React/Vite web frontend, and an Android app via Capacitor.
 
-## 🚀 Features
+> **Status: experimental prototype.** The core server, authentication, and database layers are implemented and run locally. Several analysis and deployment features are currently mocked (see [What works vs. what's mocked](#what-works-vs-what-is-mocked)). There is no test suite yet. Do not deploy the backend to a shared environment before resolving the security items in [Known limitations](#known-limitations).
 
-### 🔧 Core Modules
-- **Repository Analysis Engine**: Automated GitHub repository scanning and analysis
-- **Architecture Mapper**: Pattern detection and visualization generation
-- **Autonomous Repo Maintainer**: Automated PR generation and maintenance
-- **Internal Model Registry**: Prompt and role management system
-- **Autonomous Prototype Generator**: Code scaffolding and project generation
-- **Unified Mobile Dashboard**: Interactive visualizations and monitoring
-- **Multi-Agent Operations Director**: Task orchestration and coordination
-- **Mobile CLI Tool**: Command-line interface for mobile devices
+## What works vs. what is mocked
 
-### 📱 Mobile-Optimized Features
-- Responsive design for all screen sizes
-- Touch-optimized interfaces
-- Pull-to-refresh functionality
-- Offline capability
-- Push notifications
-- Safe area support for modern devices
-- High performance on mobile networks
+Implemented and functional:
 
-### 🛠️ Technical Stack
-- **Backend**: Node.js, Express, PostgreSQL, Redis
-- **Frontend**: React, Vite, Tailwind CSS
-- **Mobile**: Capacitor, Android/iOS native
-- **Authentication**: JWT with role-based access
-- **API**: RESTful with OpenAPI documentation
-- **Real-time**: WebSocket connections for live updates
+- Express API with helmet, CORS, compression, request logging, and rate limiting (100 requests / 15 min per IP on `/api/*`)
+- JWT authentication (`register`, `login`, `me`, `refresh`) with bcrypt password hashing (12 rounds)
+- PostgreSQL data layer with parameterized queries throughout, and schema creation on first start
+- Redis caching (1-hour TTL) for repository metadata lookups
+- Repository registration and monitoring records, agent task records, prompt/registry CRUD, prototype generation (scaffolding stored in the database)
+- React 19 + Vite frontend with an axios service layer, token interceptors, and Tailwind styling
+- Capacitor/Android project scaffold, ready to sync and open in Android Studio
+- CI workflow, Dependabot (npm + GitHub Actions), CODEOWNERS, and an org-level governance workflow
 
-## 🏗️ Architecture
+Mocked or stubbed (returns placeholder data):
+
+- CLI `analyze` (security / performance / architecture scores) returns randomized values — not real analysis
+- CLI `monitor` reports randomized system metrics (process uptime is the only real value)
+- CLI `deploy` generates a fabricated `*.example.com` URL and marks the prototype "deployed" — no deployment occurs
+- APK upload accepts version metadata only (no multipart file handling) and APK download returns a placeholder URL
+- Maintenance-needs detection returns a static canned list
+- `backend/demo-server.js` is a separate demo app that accepts any credentials — do not run it; it is not part of the production server
+
+Not wired up (files exist but are not mounted by `server.js`): `routes/quadruple.js`, `routes/zero-gas-rituals.js`, `routes/autonomous-liver.js`, `routes/ip-moat.js`.
+
+There is no WebSocket layer, no OpenAPI document, and no test suite despite what earlier versions of this README claimed. This document supersedes those claims.
+
+## Repository layout
 
 ```
-no-gas-labs-ops/
-├── backend/                 # Node.js API server
-│   ├── config/             # Database and configuration
-│   ├── routes/             # API endpoints for all modules
-│   ├── server.js           # Main server file
-│   └── start.js            # Startup script
-├── frontend/               # React mobile app
-│   ├── src/
-│   │   ├── components/     # React components
-│   │   ├── services/       # API and auth services
-│   │   └── styles/         # Mobile-first CSS
-│   ├── dist/               # Built web assets
-│   └── android/            # Android native project
-├── docs/                   # Documentation
-├── scripts/               # Build and deployment scripts
-└── database/              # Database schemas and migrations
+ai-guild-hardened-v0.2/
+├── backend/               # Node.js/Express API
+│   ├── config/            #   PostgreSQL + Redis clients, schema init
+│   ├── routes/            #   12 mounted route modules + 4 unmounted
+│   ├── server.js          #   Express app (entry: start.js)
+│   └── demo-server.js     #   demo stub (not for production)
+├── frontend/              # React 19 + Vite + Tailwind web app
+│   ├── src/               #   components/ (dashboard, agents, CLI, ...), services/
+│   └── android/           #   Capacitor-generated Android project
+├── external/flashware/    # separate Sui flash-loan visual builder project
+│                          #   (Express/Prisma backend, React flow builder, Move contracts)
+├── external/blaze-lib/    # vendored PHP JWT library (not used by the Node code)
+├── mini-app-matrix/       # archived static mini-app site versions (v1–v5) + notes
+├── ip-protection/         # IP governance artifacts (reports, registry JSON, monitor script)
+├── database/migrations/   # SQL migrations
+├── docs/                  # iconography generation guide
+├── .github/               # CI, org-level governance workflow, Dependabot, CODEOWNERS
+├── AI-GUILD-MANIFESTO.md  # project manifesto
+├── DEPLOYMENT.md          # APK build and deployment guide
+└── PROJECT_SUMMARY.md     # historical build summary (aspirational; not a status report)
 ```
 
-## 🚀 Quick Start
+## Getting started
 
 ### Prerequisites
+
 - Node.js 18+
-- PostgreSQL 15+
+- PostgreSQL 14+ (a local instance with credentials you control)
 - Redis 6+
-- Android Studio (for mobile development)
+- Android Studio + JDK 17 (only for the Android app)
 
-### 1. Backend Setup
+### 1. Backend
 
 ```bash
-# Navigate to backend directory
 cd backend
-
-# Install dependencies
-npm install
-
-# Set up environment variables
+npm install        # note: heavy dependencies (puppeteer, sharp); the install is large
 cp .env.example .env
-# Edit .env with your configuration
-
-# Initialize database
-node start.js
+# Edit .env: set DB_PASSWORD, JWT_SECRET (a strong random value), and GITHUB_TOKEN
+node start.js     # initializes schema, then starts the server on port 3000
 ```
 
-### 2. Frontend Setup
+Environment variables the code actually reads: `PORT`, `NODE_ENV`, `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`, `GITHUB_TOKEN`, `JWT_SECRET`. (Other entries in `.env.example` are currently not referenced by the code, e.g. `CORS_ORIGIN` and `JWT_EXPIRES_IN` — token lifetime is hardcoded to 24h.)
+
+**Known first-run bug:** `config/database.js` contains JavaScript-style `//` comments inside the SQL for the `dependencies` and `agent_tasks` table definitions. PostgreSQL rejects `//`, so schema initialization fails on a clean database. Before first run, change those to `--` comments (or apply the fix from the review remediation list).
+
+### 2. Frontend
 
 ```bash
-# Navigate to frontend directory
 cd frontend
-
-# Install dependencies
 npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
+npm run dev        # dev server on http://localhost:8080
 ```
 
-### 3. Mobile App Development
+The API base URL defaults to `http://localhost:3000` on localhost, otherwise `https://api.nogaslabs.com`. Override with `VITE_API_URL` (e.g. in a `.env` file in `frontend/`). Build with `npm run build` (output in `dist/`).
+
+### 3. Android app
 
 ```bash
-# Build and sync mobile app
-npm run build
-npm run sync
-
-# Open in Android Studio
-npm run android
-
-# Or build APK directly
-npm run build:android
-```
-
-## 📱 Mobile App Features
-
-### Repository Management
-- Add and monitor GitHub repositories
-- Real-time dependency scanning
-- Security vulnerability detection
-- Automated maintenance tasks
-
-### AI Agent Coordination
-- Monitor agent performance and health
-- Start/stop agents on demand
-- View task execution history
-- Coordinate multi-agent workflows
-
-### Prototype Generation
-- Generate code scaffolding from descriptions
-- Automatic test generation
-- One-click deployment to staging
-- Version management and rollbacks
-
-### CLI Interface
-- Mobile-optimized command execution
-- Command history and favorites
-- Real-time output streaming
-- Plugin system support
-
-## 🔌 API Documentation
-
-### Authentication
-```bash
-# Login
-POST /api/auth/login
-{
-  "username": "admin",
-  "password": "admin123"
-}
-```
-
-### Repository Management
-```bash
-# Add repository
-POST /api/repos/add
-{
-  "url": "https://github.com/user/repo"
-}
-
-# Scan repository
-POST /api/repos/:id/scan
-```
-
-### Agent Management
-```bash
-# Get all agents
-GET /api/agents
-
-# Start agent
-POST /api/agents/:id/start
-```
-
-### CLI Commands
-```bash
-# Execute CLI command
-POST /api/cli/execute
-{
-  "command": "scan",
-  "args": ["--repo-url=https://github.com/user/repo"]
-}
-```
-
-## 🧪 Testing
-
-### Backend Tests
-```bash
-cd backend
-npm test
-```
-
-### Frontend Tests
-```bash
-cd frontend
-npm test
-```
-
-### Mobile Tests
-```bash
-cd frontend
-npm run test:android
-```
-
-## 📦 Deployment
-
-### Backend Deployment
-```bash
-# Production build
-cd backend
-npm run start
-
-# With Docker
-docker build -t nogaslabs-ops .
-docker run -p 3000:3000 nogaslabs-ops
-```
-
-### Mobile App Deployment
-```bash
-# Build release APK
 cd frontend
 npm run build
 npx cap sync android
-cd android
-./gradlew assembleRelease
-
-# Deploy to Google Play Store
-./gradlew publishRelease
+npx cap open android   # opens Android Studio; build APK from there
 ```
 
-## 🔧 Configuration
+## API overview
 
-### Environment Variables
+All API routes are prefixed with `/api`. Authentication uses `Bearer` JWT tokens from `POST /api/auth/login` (register first via `POST /api/auth/register`). Mounted modules: `auth`, `repos`, `architecture`, `maintainer`, `registry`, `prototypes`, `dashboard`, `agents`, `cli`, `apk`, `notifications`, `insights`. A `GET /health` endpoint is available unauthenticated. There is no OpenAPI/Swagger document — treat this section and the route files as the reference.
 
-#### Backend
-```env
-PORT=3000
-NODE_ENV=production
-DB_HOST=localhost
-DB_PASSWORD=your_password
-GITHUB_TOKEN=your_github_token
-JWT_SECRET=your_jwt_secret
-```
+## Known limitations
 
-#### Mobile
-```env
-VITE_API_URL=https://your-api.com
-VITE_APP_VERSION=1.0.0
-```
+These are tracked for remediation and are the reason for the "prototype" status above:
 
-## 📊 Monitoring
+- **Security (must fix before any shared deployment):** the registration endpoint accepts `role` from the request body (allowing self-registered admin accounts); a hardcoded JWT secret fallback exists if `JWT_SECRET` is unset; `backend/.env` is committed to git and there is no root `.gitignore`; CORS is open to all origins.
+- **Correctness:** schema init fails due to the `//` SQL comments noted above.
+- **Honesty of outputs:** the mocked modules listed above return placeholder data.
+- **Testing:** no tests exist; `npm test` in every package exits with an error by design.
+- **Dead weight:** `demo-server.js`, `Dashboard.jsx.backup`, the four unmounted route files, and unused heavy dependencies (`puppeteer`, `sharp`, `winston`, `mermaid`, `multer`, `redis` npm package) should be removed or wired up.
 
-### System Health
-- Database connection monitoring
-- API response time tracking
-- Agent performance metrics
-- Mobile app analytics
+## License
 
-### Alerts
-- Security vulnerability notifications
-- System performance alerts
-- Agent failure notifications
-- Repository maintenance reminders
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-- Documentation: [docs/](docs/)
-- API Reference: `/docs/api`
-- Issue Tracker: GitHub Issues
-- Community: Discord/Slack
-
-## 🏆 Credits
-
-Built by the No-Gas-Labs™ team with ❤️ for the developer community.
-
----
-
-**No-Gas-Labs™ Operations Intelligence System**  
-*Mobile-First DevOps Automation Platform*  
-Version 1.0.0
+The code in this repository is licensed under the **NoGasLabs IP Attribution License v1.0 (NGL-A)** — see [`LICENSE`](LICENSE). Note a known inconsistency: `LICENSE.md` duplicates it with different fee terms, and `package.json` files currently declare MIT/ISC; these should be reconciled to NGL-A or a standard license of the owner's choosing.
