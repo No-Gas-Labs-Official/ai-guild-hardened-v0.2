@@ -1,16 +1,16 @@
 {
   "name": "no-gas-labs-ops",
   "version": "1.0.0",
-  "description": "",
+  "description": "AI Guild hardened ops surface for No-Gas-Labs",
   "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node -e \"console.log('No automated tests configured yet. See README / docs.'); process.exit(0)\""
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["no-gas-labs", "ai-guild"],
+  "author": "No-Gas-Labs-Official",
   "license": "ISC",
   "type": "commonjs"
 }
