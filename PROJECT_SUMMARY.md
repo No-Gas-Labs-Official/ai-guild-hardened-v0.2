@@ -1,3 +1,7 @@
+> **Historical agent-generated completion report — not a verification record.**
+>
+> This document records what an earlier build agent claimed in November 2024. Current repository evidence does not establish several statements below, including production readiness, generated APK availability, quantified response time/throughput/uptime/Lighthouse/memory figures, or 100% requirements coverage. The current backend package on the default branch has no executable test suite (`npm test` is an intentional failure placeholder). Treat each unchecked claim below as **ASSERTED** until independently reproduced.
+
 # 🎉 No-Gas-Labs™ Operations Intelligence System - Project Complete!
 
 ## 📋 Executive Summary
