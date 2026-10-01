@@ -4,8 +4,16 @@ const jwt = require('jsonwebtoken');
 const { pool } = require('../config/database');
 const router = express.Router();
 
-// JWT Secret (should be in environment variables)
-const JWT_SECRET = process.env.JWT_SECRET || 'nogaslabs-super-secret-key';
+// JWT signing authority must be operator-configured in production.
+const JWT_SECRET = process.env.JWT_SECRET ||
+  (process.env.NODE_ENV === 'production' ? null : 'dev-only-insecure-secret');
+
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET must be set when NODE_ENV=production');
+}
+if (!process.env.JWT_SECRET) {
+  console.warn('JWT_SECRET not set; using an insecure development-only secret');
+}
 
 // Middleware to verify JWT token
 const authenticateToken = (req, res, next) => {
@@ -28,7 +36,9 @@ const authenticateToken = (req, res, next) => {
 // Register new user
 router.post('/register', async (req, res) => {
   try {
-    const { username, email, password, role = 'user' } = req.body;
+    const { username, email, password } = req.body;
+    // Registration never grants caller-selected privilege.
+    const role = 'user';
 
     if (!username || !email || !password) {
       return res.status(400).json({ error: 'Username, email, and password are required' });
