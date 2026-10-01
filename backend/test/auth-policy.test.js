@@ -1,8 +1,10 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const { readFile } = require('node:fs/promises');
 
-const authSource = await readFile(new URL('../routes/auth.js', import.meta.url), 'utf8');
+const { join } = require('node:path');
+
+const authSource = await readFile(join(__dirname, '../routes/auth.js'), 'utf8');
 
 test('public registration cannot accept caller-selected role', () => {
   assert.match(authSource, /const \{ username, email, password \} = req\.body;/);
