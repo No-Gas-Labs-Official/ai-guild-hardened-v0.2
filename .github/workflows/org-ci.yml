@@ -6,12 +6,92 @@ on:
   pull_request:
     branches: [ main, master, develop ]
 
+# These checks are intentionally local. The governance repository is private,
+# and cross-repository reusable-workflow admission is not enabled for this repo.
+# Keeping the gates here makes the required check executable instead of failing
+# before GitHub can create a job.
+
 jobs:
   core:
-    uses: No-Gas-Labs-Official/no-gas-labs-governance/.github/workflows/ci-core.yml@main
+    name: core
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+        python-version: ["3.10", "3.11"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect language
+        id: detect
+        shell: bash
+        run: |
+          if [ -f package.json ]; then echo "node=true" >> "$GITHUB_OUTPUT"; else echo "node=false" >> "$GITHUB_OUTPUT"; fi
+          if [ -f requirements.txt ] || [ -f setup.py ] || [ -f pyproject.toml ]; then echo "python=true" >> "$GITHUB_OUTPUT"; else echo "python=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Setup Node
+        if: steps.detect.outputs.node == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install, build, and test Node project
+        if: steps.detect.outputs.node == 'true'
+        shell: bash
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+          if npm run | grep -q "build"; then npm run build; fi
+          if npm run | grep -q "test"; then npm test; else echo "No test script found in package.json"; fi
+
+      - name: Setup Python
+        if: steps.detect.outputs.python == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install and test Python project
+        if: steps.detect.outputs.python == 'true'
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt
+          elif [ -f pyproject.toml ]; then pip install .
+          elif [ -f setup.py ]; then pip install -e .
+          fi
+          if command -v pytest >/dev/null; then pytest
+          elif python -m unittest discover >/dev/null 2>&1; then python -m unittest discover
+          else echo "No recognized Python test runner found"
+          fi
 
   security:
-    uses: No-Gas-Labs-Official/no-gas-labs-governance/.github/workflows/security-core.yml@main
+    name: security
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Secret scan
+        uses: trufflesecurity/trufflehog@363923b901c911a9164f50b6c423f47c15372b1c
+        with:
+          extra_args: "--results=verified,unknown"
 
   classification:
-    uses: No-Gas-Labs-Official/no-gas-labs-governance/.github/workflows/repo-classification-check.yml@main
+    name: classification
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate repository classification
+        shell: bash
+        run: |
+          test -f .repo-classification.json || { echo "::error::.repo-classification.json file is required in the repository root"; exit 1; }
+          jq . .repo-classification.json >/dev/null 2>&1 || { echo "::error::.repo-classification.json is not valid JSON"; exit 1; }
+          STATE=$(jq -r '.state // empty' .repo-classification.json)
+          [[ "$STATE" =~ ^(ACTIVE|SANDBOX|FROZEN)$ ]] || { echo "::error::Invalid or missing state '$STATE'"; exit 1; }
+          if [ "$STATE" = "ACTIVE" ]; then
+            CRITICALITY=$(jq -r '.criticality // empty' .repo-classification.json)
+            [[ "$CRITICALITY" =~ ^(HIGH|MEDIUM|LOW)$ ]] || { echo "::error::ACTIVE repositories require criticality HIGH, MEDIUM, or LOW"; exit 1; }
+          fi
+          OWNER=$(jq -r '.owner // empty' .repo-classification.json)
+          DOMAIN=$(jq -r '.domain // empty' .repo-classification.json)
+          [ -n "$OWNER" ] || echo "::warning::Missing 'owner' field in .repo-classification.json"
+          [ -n "$DOMAIN" ] || echo "::warning::Missing 'domain' field in .repo-classification.json"
